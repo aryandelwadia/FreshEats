@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
+
+.bg{
+    background-color:#06c167;
+    border-radius: 50px;
+    color: black;
+    font-weight: 700;
+}
+
+:hover.bg{
+    color:#06c167;
+    background-color: black;
+}
