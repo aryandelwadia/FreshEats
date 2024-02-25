@@ -1,13 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
+.fredoka{
+  font-family: "Fredoka", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
 
 .bg{
     background-color:#06c167;
     border-radius: 50px;
     color: black;
     font-weight: 700;
+    transition: 200ms;
 }
 
 :hover.bg{
-    color:#06c167;
     background-color: black;
+    color:#06c167;
+    transition: 200ms;
 }
