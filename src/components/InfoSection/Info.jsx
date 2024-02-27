@@ -19,13 +19,13 @@ export default function Info(){
 
         <div className=" flex justify-between">
             <img src="src/assets/Strawberry.png" alt="" className='w-1/3 h-1/3 '/>
-            <div className="my-40 cantora-one-regular text-left">
-                <div className=' font-bold text-5xl w-1/2 '>
+            <div className="my-40 cantora-one-regular text-right">
+                <div className=' font-bold text-5xl mr-40 '>
                     An Apple A Day,<br></br><br></br>
                     Keeps Doctor Away
                 </div>
                 <br />
-                <div className=' w-1/2 text-xl average-sans-regular text-left '>
+                <div className='  text-xl average-sans-regular text-right mr-40 ml-96'>
                 Discover the vibrant world of fresh fruits and vegetables, rich in essential vitamins, minerals, and antioxidants. Embrace their disease-fighting properties, fiber-rich goodness, and hydrating benefits for optimal health and vitality. With endless flavors and environmental benefits, make fresh produce a delicious cornerstone of your daily diet.
                 </div>
             </div>
