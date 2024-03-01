@@ -5,7 +5,11 @@ export default function Navbar(){
     return <>
         <div className="flex justify-between mb-5">
             <div className="mt-10">
-                <img src="src\assets\Logo.png" className="ml-10 h-24"/>
+                <button>
+                    <Link to={'/'}>
+                        <img src="src\assets\Logo.png" className="ml-10 h-24"/>
+                    </Link>
+                </button>
             </div>
             <div className="mt-12">
                 <button className="mx-5 text-3xl hover:underline fredoka">Trending Recipies</button>

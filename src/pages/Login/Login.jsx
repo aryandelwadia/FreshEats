@@ -20,6 +20,8 @@ export default function Login(){
             <br />
             <button className="text-2xl bg p-2 px-4 fredoka mr-5" >Login</button>
             <button className="text-2xl p-2 px-4 fredoka fp" >Forget Password</button>
+            <br />
+            <button className="text-2xl p-2 px-4 fredoka fp mt-5" >Don't have account yet</button>
         </div>
     </div>
 
