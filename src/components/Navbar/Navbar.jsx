@@ -1,4 +1,5 @@
 import './navbar.css';
+import { Link } from 'react-router-dom';
 
 export default function Navbar(){
     return <>
@@ -9,7 +10,7 @@ export default function Navbar(){
             <div className="mt-12">
                 <button className="mx-5 text-3xl hover:underline fredoka">Trending Recipies</button>
                 <button className="mx-5 text-3xl hover:underline fredoka">Trending Recipies</button>
-                <button className="mx-5 text-3xl bg p-4 px-6 fredoka">Login</button>
+                <button className="mx-5 text-3xl bg p-4 px-6 fredoka" ><Link to={'/login'}>Login</Link></button>
                 <button className='mr-10'><img src="src/assets/More Button.png" alt="" /></button>
             </div>
         </div> 
