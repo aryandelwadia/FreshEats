@@ -16,7 +16,7 @@
 }
 
 :hover.bg{
-    background-color: black;
+    background-color: #1a1a1a;
     color:#06c167;
     transition: 200ms;
 }

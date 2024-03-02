@@ -1,6 +1,7 @@
 import '../../components/HomeCard/homecard.css'
 import '../Login/login.css'
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
 export default function Login(){
     return<>
@@ -24,8 +25,12 @@ export default function Login(){
             <div className='cantora-one-regular font-bold'>Password</div>
             <input className='rounded-lg back cantora-one-regular font-bold p-1 w-96 mb-10' type='password'></input>
             <br />
-            <button className="text-2xl bg p-2 px-4 fredoka mr-5" >Sign Up</button>
-            <button className="text-2xl p-2 px-4 fredoka fp" >Login</button>
+            <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9}} className="text-2xl bg p-2 px-4 fredoka mr-5" >Sign Up</motion.button>
+            <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9}} className="text-2xl p-2 px-4 fredoka fp" >
+                <Link to={"/login"}>
+                    Login
+                </Link>
+            </motion.button>
         </div>
     </div>
 
