@@ -7,7 +7,7 @@ export default function Navbar(){
     const {scrollYProgress} = useScroll();
     
     return <>
-        <motion.div style={{scaleX: scrollYProgress, transformOrigin: "left", position: 'fixed', width: "100%", height: 20, backgroundColor: "#06c167"}} className=' z-50'>
+        <motion.div style={{scaleX: scrollYProgress, transformOrigin: "left", position: 'fixed', width: "100%", height: 10, backgroundColor: "#06c167"}} className=' z-50'>
         </motion.div>
         <div className="flex justify-between mb-5">
             <div className="mt-10">
