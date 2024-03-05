@@ -13,7 +13,7 @@ export default function Login(){
         const password = document.getElementById('password').value;
 
         try{
-            const response = await axios.post('http://localhost:3000/login', {
+            const response = await axios.post('http://localhost:3000/user/login', {
                 email: email,
                 pw: password
             });
@@ -29,8 +29,9 @@ export default function Login(){
     <div className=" bg-black flex justify-center">
         <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9}}>
             <Link to={'/'}>
-                <img src="src/assets/Logo.png" alt="" className='my-10'/>
+                <img src="src/assets/logo.png" alt="" className='my-10'/>
             </Link>
+            
         </motion.button>
     </div>
     <div className='bghc flex align-middle justify-center mx-96 p-32 rounded-xl'>
