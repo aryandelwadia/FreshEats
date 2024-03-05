@@ -48,7 +48,7 @@ export default function Info(){
             <HomeCard img="src/assets/bulk.png" heading="Bulk Orders Accepted" content="Bulk orders welcomed! Stock up on fresh produce with ease. Contact us today to inquire about special pricing and arrangements." />
         </motion.div>
         
-        <motion.div style={{ x }} className=' relative h-[300vh] bg-black ' ref={targetref}>
+        <motion.div style={{ x }} initial={{opacity: 0, translateX: -100, scale: 0.9}} whileInView={{opacity: 1, translateX: 0, scale: 1}} transition={{duration: 0.5}} className=' relative h-[300vh] bg-black ' ref={targetref}>
             <div className=' h-screen sticky top-0 flex items-center overflow-hidden'>
                 <div className='flex gap-4'>
                     

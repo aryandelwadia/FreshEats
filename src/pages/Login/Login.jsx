@@ -2,24 +2,45 @@ import '../../components/HomeCard/homecard.css'
 import './login.css'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import axios from 'axios'
 
 export default function Login(){
+    
+    const handleLogin = async (e)=>{
+        e.preventDefault();
+
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        try{
+            const response = await axios.post('http://localhost:3000/login', {
+                email: email,
+                pw: password
+            });
+
+            console.log(response.data);
+        }
+        catch(err){
+            console.log(err);
+        }
+    }
+    
     return<>
     <div className=" bg-black flex justify-center">
         <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9}}>
             <Link to={'/'}>
-                <img src="src/assets/logo.png" alt="" className='my-10'/>
+                <img src="src/assets/Logo.png" alt="" className='my-10'/>
             </Link>
         </motion.button>
     </div>
     <div className='bghc flex align-middle justify-center mx-96 p-32 rounded-xl'>
         <div>
-            <div className='cantora-one-regular font-bold'>E-mail</div>
-            <input className='rounded-lg back cantora-one-regular font-bold p-1 w-96 mb-10' ></input>
+            <div className='cantora-one-regular font-bold' >E-mail</div>
+            <input className='rounded-lg back cantora-one-regular font-bold p-1 w-96 mb-10' id='email'></input>
             <div className='cantora-one-regular font-bold'>Password</div>
-            <input className='rounded-lg back cantora-one-regular font-bold p-1 w-96 mb-10' type='password'></input>
+            <input className='rounded-lg back cantora-one-regular font-bold p-1 w-96 mb-10' type='password' id='password'></input>
             <br />
-            <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9}} className="text-2xl bg p-2 px-4 fredoka mr-5" >Login</motion.button>
+            <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9}} className="text-2xl bg p-2 px-4 fredoka mr-5" onClick={handleLogin} >Login</motion.button>
             <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9}} className="text-2xl p-2 px-4 fredoka fp" >Forget Password</motion.button>
             <br />
             <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9}} className="text-2xl p-2 px-4 fredoka fp mt-5" >
