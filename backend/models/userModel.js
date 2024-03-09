@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+var validator = require('email-validator');
+const bcrypt = require('bcrypt');
 
 const db_link = 'mongodb+srv://aryandelwadia:aryan2004@cluster0.1uxgu17.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
 
@@ -29,12 +31,21 @@ const userSchema = mongoose.Schema({
     email:{
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        // validate: function(){
+        //     return validator.validate(email);
+        // }
     },
     password:{
         type: String,
         required: true,
     }
+});
+
+userSchema.pre('save',async function(){
+    let salt = await bcrypt.genSalt();
+    let hashed =await bcrypt.hash(this.password, salt);
+    this.password = hashed;
 });
 
 const userModel = mongoose.model('userModel', userSchema);

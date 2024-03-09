@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const userModel = require('../models/userModel');
+const { default: toast } = require('react-hot-toast');
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
@@ -31,8 +32,10 @@ module.exports.signupUser = async function signupUser(req, res){
         res.json({
             message: 'user signed up'
         });
+        
     }
     catch(err){
+        
         res.json({
             message: err.message,
         })

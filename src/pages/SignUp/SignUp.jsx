@@ -3,12 +3,13 @@ import '../Login/login.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 export default function Login(){
     
     const navigate = useNavigate();
     
-    async function handleSignUp(e){
+    const handleSignUp = async function(e){
         e.preventDefault();
 
         const fname = document.getElementById('fname').value;
@@ -17,18 +18,25 @@ export default function Login(){
         const password = document.getElementById('password').value;
         const number = document.getElementById('number').value; 
 
-        try{
-            const response = await axios.post("http://localhost:3000/user/signup",{
-                fname: fname,
-                lname: lname,
-                email: email,
-                password: password,
-                number: number
-            });
-            navigate('/');
+        if(fname=="" || lname=="" || email=="" || password=="" || number==""){
+            toast.error( "Please fill out all fields" );
         }
-        catch(err){
-            console.log('unable to signup');
+        else{
+            try{
+                const response = await axios.post("http://localhost:3000/user/signup",{
+                    fname: fname,
+                    lname: lname,
+                    email: email,
+                    password: password,
+                    number: number
+                });
+                toast.success('User Signed Up');
+                navigate('/');
+            }
+            catch(err){
+                toast.error("Error occured");
+                console.log('unable to signup');
+            }
         }
     }
     
