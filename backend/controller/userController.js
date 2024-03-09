@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const mongoose = require('mongoose');
 const userModel = require('../models/userModel');
 
 app.use((req, res, next) => {
@@ -13,5 +14,27 @@ app.use((req, res, next) => {
 
 module.exports.loginUser = async function loginUser(req, res){
     const data = req.body;
-    res.json(data);
+    try{
+        let 
+    }
+    catch(err){
+        res.json({
+            message: err.message,
+        })
+    }
 };
+
+module.exports.signupUser = async function signupUser(req, res){
+    const data = req.body;
+    try{
+        let user = await userModel.create(data);
+        res.json({
+            message: 'user signed up'
+        });
+    }
+    catch(err){
+        res.json({
+            message: err.message,
+        })
+    }
+}

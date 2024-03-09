@@ -50,14 +50,14 @@ export default function Info(){
         
         <motion.div style={{ x }} initial={{opacity: 0, translateX: -100, scale: 0.9}} whileInView={{opacity: 1, translateX: 0, scale: 1}} transition={{duration: 0.5}} className=' relative h-[300vh] bg-black ' ref={targetref}>
             <div className=' h-screen sticky top-0 flex items-center overflow-hidden'>
-                <div className='flex gap-4'>
+                <div className='flex' >
                     
-                    <motion.img whileHover={{scale: 0.9}} src="https://source.unsplash.com/a-pile-of-green-leafy-vegetables-sitting-on-top-of-a-table-KwCnhUTkCo8" alt="" className='w-[300px] h-[500px]' />                    
-                    <motion.img whileHover={{scale: 0.9}} src="https://source.unsplash.com/red-bell-pepper-in-close-up-photography-AXyvGt8UH14" alt="" className='w-[300px] h-[500px]' />
-                    <motion.img whileHover={{scale: 0.9}} src="https://source.unsplash.com/vegetable-stand-photo-pRJhn4MbsMM" alt="" className='w-[300px] h-[500px]' />
-                    <motion.img whileHover={{scale: 0.9}} src="https://source.unsplash.com/green-leaf-vegetable-ZGXhE1L7VL8" alt="" className='w-[300px] h-[500px]' />
-                    <motion.img whileHover={{scale: 0.9}} src="https://source.unsplash.com/a-blue-bowl-filled-with-vegetables-and-a-wooden-spoon-yhc4pSbl01A" alt="" className='w-[300px] h-[500px]' />
-                    <motion.img whileHover={{scale: 0.9}} src="https://source.unsplash.com/vegetables-on-rack-rS4OSc9yhSo" alt="" className='w-[300px] h-[500px]' />
+                    <motion.img whileHover={{scale: 0.9}} src="https://source.unsplash.com/a-pile-of-green-leafy-vegetables-sitting-on-top-of-a-table-KwCnhUTkCo8" alt="" className='w-[300px] h-[500px] relative top-5 right-5' />                    
+                    <motion.img whileHover={{scale: 0.9}} src="https://source.unsplash.com/red-bell-pepper-in-close-up-photography-AXyvGt8UH14" alt="" className='w-[300px] h-[500px] relative bottom-20 left-5' />
+                    <motion.img whileHover={{scale: 0.9}} src="https://source.unsplash.com/vegetable-stand-photo-pRJhn4MbsMM" alt="" className='w-[300px] h-[500px] relative top-40 left-10' />
+                    <motion.img whileHover={{scale: 0.9}} src="https://source.unsplash.com/green-leaf-vegetable-ZGXhE1L7VL8" alt="" className='w-[300px] h-[500px] relative left-20 bottom-44' />
+                    <motion.img whileHover={{scale: 0.9}} src="https://source.unsplash.com/a-blue-bowl-filled-with-vegetables-and-a-wooden-spoon-yhc4pSbl01A" alt="" className='w-[300px] h-[500px] relative top-48 left-28' />
+                    <motion.img whileHover={{scale: 0.9}} src="https://source.unsplash.com/vegetables-on-rack-rS4OSc9yhSo" alt="" className='w-[300px] h-[500px] relative left-32' />
                     </div>
             </div>
         </motion.div>
