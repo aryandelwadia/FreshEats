@@ -1,27 +1,41 @@
 import '../../components/HomeCard/homecard.css'
 import './login.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import axios from 'axios'
+import toast from "react-hot-toast"
 
-export default function Login(){
+export default function Login({ loginState, setLoginState }){
     
+    const navigate = useNavigate();
+
     const handleLogin = async (e)=>{
         e.preventDefault();
 
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
-        try{
-            const response = await axios.post('http://localhost:3000/user/login', {
-                email: email,
-                pw: password
-            });
-
-            console.log(response.data);
+        if(email == "" || password == ""){
+            toast.error("Please fill out all fields");
         }
-        catch(err){
-            console.log(err);
+        else{
+            try{
+                const response = await axios.post('http://localhost:3000/user/login', {
+                    email: email,
+                    password: password
+                });
+                toast.success("Logged In Successfully");
+                setLoginState(!loginState);
+                navigate('/');
+            }
+            catch(err){
+                if(err.message == "Request failed with status code 401"){
+                    toast.error("Wrong Credentials");
+                }
+                else{
+                    toast.err("Error Occured")
+                }
+            }
         }
     }
     
