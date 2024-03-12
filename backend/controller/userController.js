@@ -2,11 +2,11 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const userModel = require('../models/userModel');
-const { default: toast } = require('react-hot-toast');
-const cookieParser = require('cookie-parser');
 const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken');
 
-app.use(cookieParser());
+const jwt_key = "wieuhfwiuefnq084f0cndasjec218coh23ecn8o9denc23ydo2d3m2839cdyh23";
+
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
@@ -24,7 +24,10 @@ module.exports.loginUser = async function loginUser(req, res){
         if(user){
             const match = await bcrypt.compare(data.password, user.password);
             if(match){
-                res.cookie('isLoggedIn', true, {httpOnly: true});
+                // res.cookie('isLoggedIn', true, {httpOnly: true});
+                let uid = user['_id'];
+                let token = jwt.sign({payload: uid}, jwt_key);
+                res.cookie("isLoggedIn", token, {httpOnly: true});
                 res.json({
                     message: "Logged in successfully", 
                 });

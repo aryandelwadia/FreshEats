@@ -48,7 +48,7 @@ export default function Login({ loginState, setLoginState }){
             
         </motion.button>
     </div>
-    <div className='bghc flex align-middle justify-center mx-96 p-32 rounded-xl'>
+    <form className='bghc flex align-middle justify-center mx-96 p-32 rounded-xl'>
         <div>
             <div className='cantora-one-regular font-bold' >E-mail</div>
             <input className='rounded-lg back cantora-one-regular font-bold p-1 w-96 mb-10' id='email'></input>
@@ -64,7 +64,7 @@ export default function Login({ loginState, setLoginState }){
                 </Link>
             </motion.button>
         </div>
-    </div>
+    </form>
 
     </>
 }
