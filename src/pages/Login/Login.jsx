@@ -24,16 +24,21 @@ export default function Login({ loginState, setLoginState }){
                     email: email,
                     password: password
                 });
-                toast.success("Logged In Successfully");
-                setLoginState(!loginState);
-                navigate('/');
+                if(response == "valid"){
+                    toast.success("Logged In Successfully");
+                    setLoginState(true);
+                    navigate('/');
+                }
+                else{
+                    toast.error("Wrong Credentials");
+                }
             }
             catch(err){
                 if(err.message == "Request failed with status code 401"){
                     toast.error("Wrong Credentials");
                 }
                 else{
-                    toast.err("Error Occured")
+                    toast.error("Error Occured");
                 }
             }
         }

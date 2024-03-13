@@ -5,7 +5,7 @@ import { motion, useScroll, useSpring } from 'framer-motion';
 export default function Navbar({ loginState, setLoginState }){
     
     const {scrollYProgress} = useScroll();
-    
+
     return <>
         <motion.div style={{scaleX: scrollYProgress, transformOrigin: "left", position: 'fixed', width: "100%", height: 10, backgroundColor: "#06c167"}} className=' z-50'>
         </motion.div>

@@ -31,11 +31,13 @@ module.exports.loginUser = async function loginUser(req, res){
                 res.json({
                     message: "Logged in successfully", 
                 });
+                return "valid";
             }
             else{
                 res.status(401).json({
                     message: "wrong credentials"
                 })
+                return false;
             }
         }
         else{
@@ -67,13 +69,23 @@ module.exports.signupUser = async function signupUser(req, res){
     }
 }
 
-// module.exports.protectUserRoute = async function protectUserRoute(req, res, next){
-//     if(req.cookies.isLoggedIn){
-//         next();
-//     }
-//     else{
-//         res.json({
-//             message: 'operation not allowed'
-//         })
-//     }
-// }
+module.exports.protectRoute = async function protectRoute(req, res, next){
+    if(req.cookies.isLoggedIn){
+        let isverified = jwt.verify(req.cookies.isLoggedIn,jwt_key);
+        if(isverified){
+            next();
+        }
+        else{
+            res.status(404).json({
+                message: "user not verified"
+            });
+        }
+    }
+    else{
+        res.json({
+            message: 'User Not Logged In'
+        });
+        res.redirect('http://localhost:5173/login');
+    }
+}
+
