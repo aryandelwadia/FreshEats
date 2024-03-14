@@ -20,5 +20,3 @@ app.use((req, res, next) => {
 });
 
 app.use('/user', userRouter);
-
-

@@ -4,22 +4,18 @@ import { motion, useScroll, useSpring } from 'framer-motion';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 
-export default function Navbar({ loginState, setLoginState, setLoginCookie, cookies }){
+export default function Navbar({ loginState, setLoginState }){
     
     const {scrollYProgress} = useScroll();
 
-    function handleLogut(){
+    async function handleLogout(){
+        
+        const response = await axios.post('http://localhost:3000/user/logout', {},{withCredentials: true});
+        
         try{
-            let response = axios.post("http://localhost:3000/user/logout",{});
-            
-            if(response.status === 200){
-                setLoginCookie(null);
-                setLoginState(false);
-                toast.success("You have logged out successfully");
-            }
-            else if(response.status === 404){
-                toast.error("Unable to logout");
-            }
+
+            setLoginState(false);
+            toast.success("You have logged out successfully");
         }
         catch(err){
             toast.error("Error Occurred123");
@@ -41,7 +37,7 @@ export default function Navbar({ loginState, setLoginState, setLoginCookie, cook
                 <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9}} className="mx-5 text-3xl hover:underline fredoka">Trending Recipies</motion.button>
                 <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9}} className="mx-5 text-3xl hover:underline fredoka">Trending Recipies</motion.button>
                 {!loginState && <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9, rotate: '2deg'}}  className="mx-5 text-3xl bg p-4 px-6 fredoka" ><Link to={'login'}>Login</Link></motion.button>}
-                {loginState && <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9, rotate: '2deg'}}  className="mx-5 text-3xl bg p-4 px-6 fredoka" onClick={handleLogut} >Logout</motion.button>}
+                {loginState && <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9, rotate: '2deg'}}  className="mx-5 text-3xl bg p-4 px-6 fredoka" onClick={handleLogout} >Logout</motion.button>}
                 <button className='mr-10'><img src="src/assets/More Button.png" alt="" /></button>
             </div>
         </div> 

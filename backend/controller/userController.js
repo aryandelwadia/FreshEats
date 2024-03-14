@@ -27,11 +27,9 @@ module.exports.loginUser = async function loginUser(req, res){
                 // res.cookie('isLoggedIn', true, {httpOnly: true});
                 let uid = user['_id'];
                 let token = jwt.sign({payload: uid}, jwt_key);
-                res.cookie("loggedin", token, {httpOnly: true });
-                res.status(200).json({
-                    message: "Logged in successfully", 
+                return res.cookie("loggedin", token, {httpOnly: true, sameSite: "None", secure: true }).status(200).json({
+                    message: "Logged in successfully",
                 });
-                return "valid";
             }
             else{
                 res.status(401).json({
@@ -71,7 +69,7 @@ module.exports.signupUser = async function signupUser(req, res){
 
 module.exports.logoutUser = async function logoutUser(req, res){
     try{
-        res.cookie('loggedin', '', {maxAge: 1});
+        res.cookie('loggedin', '', {maxAge: 1, withCredentials: true});
         res.status(200).json({
             message: "user logged out successfully",
         });
