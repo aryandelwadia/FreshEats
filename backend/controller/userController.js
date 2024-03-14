@@ -27,8 +27,8 @@ module.exports.loginUser = async function loginUser(req, res){
                 // res.cookie('isLoggedIn', true, {httpOnly: true});
                 let uid = user['_id'];
                 let token = jwt.sign({payload: uid}, jwt_key);
-                res.cookie("isLoggedIn", token, {httpOnly: true});
-                res.json({
+                res.cookie("loggedin", token, {httpOnly: true });
+                res.status(200).json({
                     message: "Logged in successfully", 
                 });
                 return "valid";
@@ -41,7 +41,7 @@ module.exports.loginUser = async function loginUser(req, res){
             }
         }
         else{
-            res.json({
+            res.status(404).json({
                 message: "user not found"
             });
         }
@@ -69,9 +69,23 @@ module.exports.signupUser = async function signupUser(req, res){
     }
 }
 
+module.exports.logoutUser = async function logoutUser(req, res){
+    try{
+        res.cookie('loggedin', '', {maxAge: 1});
+        res.status(200).json({
+            message: "user logged out successfully",
+        });
+    }
+    catch(err){
+        res.status(404).json({
+            message: err.message
+        });
+    }
+}
+
 module.exports.protectRoute = async function protectRoute(req, res, next){
     if(req.cookies.isLoggedIn){
-        let isverified = jwt.verify(req.cookies.isLoggedIn,jwt_key);
+        let isverified = jwt.verify(req.cookies.loggedin,jwt_key);
         if(isverified){
             next();
         }
