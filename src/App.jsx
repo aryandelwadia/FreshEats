@@ -9,7 +9,8 @@ import { useCookies, CookiesProvider } from 'react-cookie';
 
 function App() {
 
-  const [loginState, setLoginState] = useState(false);
+  const [cookies, setCookie, removeCookie] = useCookies();
+  const [loginState, setLoginState] = useState(cookies.loggedin == undefined ? false : true);
 
 
   return (

@@ -27,7 +27,7 @@ module.exports.loginUser = async function loginUser(req, res){
                 // res.cookie('isLoggedIn', true, {httpOnly: true});
                 let uid = user['_id'];
                 let token = jwt.sign({payload: uid}, jwt_key);
-                return res.cookie("loggedin", token, {httpOnly: true, sameSite: "None", secure: true }).status(200).json({
+                return res.cookie("loggedin", token, {sameSite: "None", secure: true }).status(200).json({
                     message: "Logged in successfully",
                 });
             }
@@ -54,10 +54,20 @@ module.exports.loginUser = async function loginUser(req, res){
 module.exports.signupUser = async function signupUser(req, res){
     try{
         const data = req.body;
-        let user = await userModel.create(data);
-        res.json({
-            message: 'user signed up'
-        });
+        let checkemail = await userModel.findOne({email: data.email});
+        let checkusername = await userModel.findOne({username: data.username});
+        let checknumber = await userModel.findOne({number: data.number});
+        if(checkemail || checknumber || checkusername){
+            res.status(440).json({
+                message: "duplicacy found",
+            });
+        }
+        else{
+            let user = await userModel.create(data);
+            res.status(200).json({
+                message: 'user signed up'
+            });
+        }
         
     }
     catch(err){

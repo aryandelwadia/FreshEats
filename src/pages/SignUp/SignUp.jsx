@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { useState } from 'react';
 
 export default function Login(){
     
@@ -15,6 +16,7 @@ export default function Login(){
         const fname = document.getElementById('fname').value;
         const lname = document.getElementById('lname').value; 
         const email = document.getElementById('email').value; 
+        const username = document.getElementById('username').value; 
         const password = document.getElementById('password').value;
         const number = document.getElementById('number').value; 
 
@@ -26,16 +28,26 @@ export default function Login(){
                 const response = await axios.post("http://localhost:3000/user/signup",{
                     fname: fname,
                     lname: lname,
+                    username: username,
                     email: email,
                     password: password,
                     number: number
                 });
-                toast.success('User Signed Up');
-                navigate('/');
+
+                if(response.status === 200){
+                    toast.success('User Signed Up');
+                    navigate('/');
+                }
+                else if (response.status === 440){
+                    toast.error("Duplicacy Founded");
+                }
+                else if (response.status === 500){
+                    toast.error("Please check all feilds again.");
+                }
             }
             catch(err){
                 toast.error("Error occured");
-                console.log('unable to signup');
+                console.log(err.message);
             }
         }
     }
@@ -44,16 +56,18 @@ export default function Login(){
     <div className=" bg-black flex justify-center">
         <button>
             <Link to={'/'}>
-                <img src="src/assets/logo.png" alt="" className='my-10'/>
+                <img src="src/assets/logo.png" alt="" className='my-5'/>
             </Link>
         </button>
     </div>
-    <div className='bghc flex align-middle justify-center mx-96 p-20 rounded-xl'>
+    <div className='bghc flex align-middle justify-center mx-96 p-10 rounded-xl'>
         <div>
             <div className='cantora-one-regular font-bold'>First Name</div>
             <input className='rounded-lg back cantora-one-regular font-bold p-1 w-96 mb-10' id='fname'></input>
             <div className='cantora-one-regular font-bold'>Last Name</div>
             <input className='rounded-lg back cantora-one-regular font-bold p-1 w-96 mb-10' id='lname'></input>
+            <div className='cantora-one-regular font-bold'>Username</div>
+            <input className='rounded-lg back cantora-one-regular font-bold p-1 w-96 mb-10' id='username'></input>
             <div className='cantora-one-regular font-bold'>Phone Number</div>
             <input className='rounded-lg back cantora-one-regular font-bold p-1 w-96 mb-10' id='number'></input>
             <div className='cantora-one-regular font-bold'>E-mail</div>

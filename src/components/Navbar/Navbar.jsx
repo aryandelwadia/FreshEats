@@ -11,7 +11,6 @@ export default function Navbar({ loginState, setLoginState }){
     async function handleLogout(){
         
         const response = await axios.post('http://localhost:3000/user/logout', {},{withCredentials: true});
-        
         try{
 
             setLoginState(false);
