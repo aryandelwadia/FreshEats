@@ -1,7 +1,7 @@
 const express = require('express');
 const userRouter = require('./router/userRouter');
+const sellerRouter = require('./router/sellerRouter');
 const cookieParser = require('cookie-parser');
-require('dotenv').config();;
 
 const app = express();
 
@@ -20,3 +20,4 @@ app.use((req, res, next) => {
 });
 
 app.use('/user', userRouter);
+app.use('/seller', sellerRouter);

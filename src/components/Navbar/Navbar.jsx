@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import toast from 'react-hot-toast';
 import axios from 'axios';
+import { useState } from 'react';
 
 export default function Navbar({ loginState, setLoginState }){
     
     const {scrollYProgress} = useScroll();
+    const [showSidebar, setShowSidebar] = useState(true);
 
     async function handleLogout(){
         

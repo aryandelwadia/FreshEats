@@ -54,15 +54,8 @@ module.exports.loginUser = async function loginUser(req, res){
 module.exports.signupUser = async function signupUser(req, res){
     try{
         const data = req.body;
-        let checkemail = await userModel.findOne({email: data.email});
-        let checkusername = await userModel.findOne({username: data.username});
-        let checknumber = await userModel.findOne({number: data.number});
-        if(checkemail || checknumber || checkusername){
-            res.status(440).json({
-                message: "duplicacy found",
-            });
-        }
-        else{
+        
+        {
             let user = await userModel.create(data);
             res.status(200).json({
                 message: 'user signed up'
@@ -75,7 +68,7 @@ module.exports.signupUser = async function signupUser(req, res){
             message: err.message,
         })
     }
-}
+};
 
 module.exports.logoutUser = async function logoutUser(req, res){
     try{
@@ -89,7 +82,24 @@ module.exports.logoutUser = async function logoutUser(req, res){
             message: err.message
         });
     }
-}
+};
+
+module.exports.checkUserDuplicate = async function checkUserDuplicate(req,res,next){
+    let username = req.body.username;
+    let user1 = await  userModel.findOne({username: username});
+    let email = req.body.email;
+    let user2 = await userModel.findOne({email: email});
+    let number = req.body.number;
+    let user3 = await userModel.findOne({number : number});
+    if(user1 || user2 || user3){
+        res.status(440).json({
+            message: "dup"
+        })
+    }
+    else{
+        next();
+    }
+};
 
 module.exports.protectRoute = async function protectRoute(req, res, next){
     if(req.cookies.isLoggedIn){
@@ -109,5 +119,5 @@ module.exports.protectRoute = async function protectRoute(req, res, next){
         });
         res.redirect('http://localhost:5173/login');
     }
-}
+};
 
