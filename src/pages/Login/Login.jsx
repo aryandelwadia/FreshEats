@@ -44,7 +44,7 @@ export default function Login({ loginState, setLoginState,}){
         }
     }
     
-    return<>
+    return <>
     <div className=" bg-black flex justify-center">
         <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9}}>
             <Link to={'/'}>
