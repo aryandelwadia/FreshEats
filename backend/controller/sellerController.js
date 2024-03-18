@@ -16,15 +16,15 @@ app.use((req, res, next) => {
 const seller_jwt_key = "dsn7dh87h1208e7dg0yds6g1dwg1078ge21e";
 
 module.exports.sellerLogin = async function sellerLogin(req,res){
+    const data = req.body;
+    let seller = await sellerModel.findOne({email: data.email});
     try{
-        const data = req.body;
-        let seller = sellerModel.findOne({email: data.email});
         if(seller){
             const isValid = await bcrypt.compareSync(data.password, seller.password);
             if(isValid){
                 let uid = seller["_id"];
                 let token = jwt.sign({payload: uid}, seller_jwt_key);
-                res.cookie("sellerLogin", token, {sameSite: "None", secure: true}).status(200).json({
+                return res.cookie("sellerLoggedin", token, {sameSite: "None", secure: true}).status(200).json({
                     message: "seller logged in"
                 });
             }
@@ -58,13 +58,13 @@ module.exports.sellerSignup = async function sellerSignup(req,res){
     catch(err){
         res.status(500).json({
             message: "Server Error!"
-        })
+        });
     }
 }
 
-module.exports.sellerLogout = async function(res,req){
+module.exports.sellerLogout = async function sellerLogout(req, res){
     try{
-        res.cookie("sellerLogin", "", {maxAge: 1, withCredentials: true});
+        res.cookie("sellerLoggedin", "", {maxAge: 1, withCredentials: true});
         res.status(200).json({
             message: "seller logged out successfully"
         });
@@ -72,6 +72,6 @@ module.exports.sellerLogout = async function(res,req){
     catch(err){
         res.status(500).json({
             message: "Server Error!"
-        })
+        });
     }
 }

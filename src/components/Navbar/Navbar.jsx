@@ -41,10 +41,12 @@ export default function Navbar({ loginState, setLoginState }){
                             </li>
                             <li className='my-4 text-xl hover:underline fredoka'> <button>Trending Recipes</button> </li>
                             <li className='my-4 text-xl hover:underline fredoka'><button>What's New</button></li>
-                            <li className='my-4 text-xl hover:underline fredoka'><button>Cart</button></li>
-                            <li className='my-4 text-xl hover:underline fredoka'><button>Profile</button></li>
+                            <li className='my-4 text-xl hover:underline fredoka'><button><Link to={'seller/login'}>Sell On Our Website</Link></button></li>
+                            {loginState ? <li className='my-4 text-xl hover:underline fredoka'><button>Cart</button></li> : <li className='my-4 text-xl hover:underline fredoka'><button onClick={()=>{toast.error("Login First")}}><Link to={'login'}>Cart</Link></button></li>}
+                            {loginState ? <li className='my-4 text-xl hover:underline fredoka'><button>Profile</button></li> : <li className='my-4 text-xl hover:underline fredoka'><button onClick={()=>{toast.error("Login First")}} ><Link to={'login'}>Profile</Link></button></li>}
                             <li className='my-4 text-xl hover:underline fredoka'>{!loginState && <button><Link to={'login'}>Login</Link></button>}</li>                
                             <li className='my-4 text-xl hover:underline fredoka'>{loginState && <button onClick={handleLogout}>Logout</button>}</li>                        
+                            <li className='my-4 text-xl hover:underline fredoka'><button><Link to={'signup'}>Sign Up</Link></button></li>
                         </motion.ul>
                     </div>
                 </motion.div>}

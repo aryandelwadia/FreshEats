@@ -5,8 +5,9 @@ import { motion } from 'framer-motion'
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useState } from 'react';
+import logo from '../../assets/logo.png';
 
-export default function SignUp(){
+export default function SellerSignUp(){
     
     const navigate = useNavigate();
     
@@ -25,7 +26,7 @@ export default function SignUp(){
         }
         else{
             try{
-                const response = await axios.post("http://localhost:3000/user/signup",{
+                const response = await axios.post("http://localhost:3000/seller/signup",{
                     fname: fname,
                     lname: lname,
                     username: username,
@@ -53,10 +54,11 @@ export default function SignUp(){
     }
     
     return<>
+    <div className=' text-center block mt-10 text-3xl ccantora-one-regular font-bold text-[#06c167]'>Become Seller On Best Grocery Market In The World</div>
     <div className=" bg-black flex justify-center">
         <button>
             <Link to={'/'}>
-                <img src="src/assets/logo.png" alt="" className='my-5'/>
+                <img src={logo} alt="" className='my-5'/>
             </Link>
         </button>
     </div>

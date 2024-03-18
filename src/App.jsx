@@ -6,6 +6,8 @@ import SignUp from './pages/SignUp/SignUp';
 import { useState } from 'react';
 import { useCookies, CookiesProvider } from 'react-cookie';
 import { AnimatePresence } from 'framer-motion';
+import SellerLogin from './pages/Login/SellerLogin';
+import SellerSignUp from './pages/SignUp/SellerSignUp';
 
 
 function App() {
@@ -21,7 +23,9 @@ function App() {
           <Routes>
             <Route path='/' element={<HomePage loginState={loginState} setLoginState={setLoginState} />}/>
             <Route path='/login' element={<Login loginState={loginState} setLoginState={setLoginState} />}/>
+            <Route path='/seller/login' element={<SellerLogin loginState={loginState} setLoginState={setLoginState}/>}/>
             <Route path='/signup' element={<SignUp />}/>
+            <Route path='/seller/signup' element={<SellerSignUp />}/>
           </Routes>
         </CookiesProvider>
       </AnimatePresence>
