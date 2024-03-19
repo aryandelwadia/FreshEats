@@ -3,7 +3,7 @@ import Info from "../../components/InfoSection/Info"
 import Navbar from "../../components/Navbar/Navbar"
 import { motion } from "framer-motion"
 
-export default function HomePage({ loginState, setLoginState }){
+export default function HomePage({ loginState, setLoginState, username, setUsername }){
     return <>
         <Navbar loginState={loginState} setLoginState={setLoginState} />
         <Info />

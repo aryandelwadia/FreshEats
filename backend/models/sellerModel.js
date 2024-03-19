@@ -51,6 +51,21 @@ const sellerSchema = mongoose.Schema({
     usertype: {
         type: String,
     },
+    storename: {
+        type: String,
+        require: true
+    },
+    address: {
+        type: String,
+        require: true
+    },
+    storenumber: {
+        type: Number,
+        required: true,
+        unique: true,
+        min: 1000000000,
+        max: 9999999999
+    }
 });
 
 sellerSchema.pre('save',async function(){

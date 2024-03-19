@@ -16,7 +16,7 @@ export default function SignUp(){
         const fname = document.getElementById('fname').value;
         const lname = document.getElementById('lname').value; 
         const email = document.getElementById('email').value; 
-        const username = document.getElementById('username').value; 
+        const usernameIn = document.getElementById('username').value; 
         const password = document.getElementById('password').value;
         const number = document.getElementById('number').value; 
 
@@ -28,7 +28,7 @@ export default function SignUp(){
                 const response = await axios.post("http://localhost:3000/user/signup",{
                     fname: fname,
                     lname: lname,
-                    username: username,
+                    username: usernameIn,
                     email: email,
                     password: password,
                     number: number
