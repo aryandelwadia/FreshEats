@@ -74,4 +74,22 @@ module.exports.sellerLogout = async function sellerLogout(req, res){
             message: "Server Error!"
         });
     }
-}
+};
+
+module.exports.getSellerCookie = async function getSellerCookie(req, res, next){
+    if(req.cookies['sellerLoggedin']){
+        // next();
+        res.json({
+            message: 'true'
+        })
+        return true;
+
+    }
+    else{
+        res.redirect('http://localhost:5173/seller/login');
+        res.json({
+            message: "please login first!!"
+        });
+        return false;
+    }
+};

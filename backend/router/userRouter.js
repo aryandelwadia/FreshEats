@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const { loginUser, signupUser, logoutUser, checkUserDuplicate } = require('../controller/userController');
+const { loginUser, signupUser, logoutUser, checkUserDuplicate, getUserCookie } = require('../controller/userController');
 
 const userRouter = express.Router();
 
@@ -16,5 +16,9 @@ userRouter
 userRouter
 .route('/logout')
 .post(logoutUser);
+
+userRouter
+.route('/getcookie')
+.get(getUserCookie);
 
 module.exports = userRouter;

@@ -4,6 +4,9 @@ const mongoose = require('mongoose');
 const userModel = require('../models/userModel');
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
+
+app.use(cookieParser());
 
 const jwt_key = "wieuhfwiuefnq084f0cndasjec218coh23ecn8o9denc23ydo2d3m2839cdyh23";
 
@@ -24,10 +27,9 @@ module.exports.loginUser = async function loginUser(req, res){
         if(user){
             const match = await bcrypt.compare(data.password, user.password);
             if(match){
-                // res.cookie('isLoggedIn', true, {httpOnly: true});
                 let uid = user['_id'];
                 let token = jwt.sign({payload: uid}, jwt_key);
-                return res.cookie("loggedin", token, {sameSite: "None", secure: true }).status(200).json({
+                res.cookie("loggedin", token, {sameSite: "None", secure: true, httpOnly: true }).status(200).json({
                     message: "Logged in successfully",
                 });
             }
@@ -121,3 +123,20 @@ module.exports.protectRoute = async function protectRoute(req, res, next){
     }
 };
 
+module.exports.getUserCookie = async function getUserCookie(req, res, next){
+    if(req.cookies['loggedin']){
+        next();
+        res.json({
+            message: 'true'
+        })
+        return true;
+
+    }
+    else{
+        res.redirect('http://localhost:5173/login');
+        res.json({
+            message: "please login first!!"
+        });
+        return false;
+    }
+};

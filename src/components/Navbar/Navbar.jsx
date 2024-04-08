@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion';
 import toast from 'react-hot-toast';
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-export default function Navbar({ loginState, setLoginState }){
+export default function Navbar({ loginState, setLoginState, checkUserLogin }){
     
     const {scrollYProgress} = useScroll();
     const [showSidebar, setShowSidebar] = useState(false);
@@ -25,7 +25,11 @@ export default function Navbar({ loginState, setLoginState }){
         catch(err){
             toast.error("Error Occurred123");
         }
-    }
+    };
+
+    useEffect(()=>{
+        checkUserLogin();
+    },[])
 
     return <>
         <AnimatePresence>
@@ -44,9 +48,9 @@ export default function Navbar({ loginState, setLoginState }){
                             <li className='my-4 text-xl hover:underline fredoka'><button><Link to={'seller/login'}>Sell On Our Website</Link></button></li>
                             {loginState ? <li className='my-4 text-xl hover:underline fredoka'><button>Cart</button></li> : <li className='my-4 text-xl hover:underline fredoka'><button onClick={()=>{toast.error("Login First")}}><Link to={'login'}>Cart</Link></button></li>}
                             {loginState ? <li className='my-4 text-xl hover:underline fredoka'><button><Link to={`/user/profile`}>Profile</Link></button></li> : <li className='my-4 text-xl hover:underline fredoka'><button onClick={()=>{toast.error("Login First")}} ><Link to={'login'}>Profile</Link></button></li>}
-                            <li className='my-4 text-xl hover:underline fredoka'>{!loginState && <button><Link to={'login'}>Login</Link></button>}</li>                
+                            {!loginState && <li className='my-4 text-xl hover:underline fredoka'>{!loginState && <button><Link to={'login'}>Login</Link></button>}</li> }               
                             <li className='my-4 text-xl hover:underline fredoka'>{loginState && <button onClick={handleLogout}>Logout</button>}</li>                        
-                            <li className='my-4 text-xl hover:underline fredoka'><button><Link to={'signup'}>Sign Up</Link></button></li>
+                            {!loginState && <li className='my-4 text-xl hover:underline fredoka'><button><Link to={'signup'}>Sign Up</Link></button></li>}
                         </motion.ul>
                     </div>
                 </motion.div>}
