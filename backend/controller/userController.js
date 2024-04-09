@@ -18,6 +18,7 @@ app.use((req, res, next) => {
     next();
 });
 
+let loggedUser;
 
 module.exports.loginUser = async function loginUser(req, res){
     try{
@@ -27,6 +28,7 @@ module.exports.loginUser = async function loginUser(req, res){
         if(user){
             const match = await bcrypt.compare(data.password, user.password);
             if(match){
+                loggedUser = user;
                 let uid = user['_id'];
                 let token = jwt.sign({payload: uid}, jwt_key);
                 res.cookie("loggedin", token, {sameSite: "None", secure: true, httpOnly: true }).status(200).json({
@@ -53,6 +55,20 @@ module.exports.loginUser = async function loginUser(req, res){
     }
 };
 
+module.exports.currentUser = async function currentUser(req, res){
+    try{
+        let user = loggedUser;
+        res.json({
+            user
+        });
+    }
+    catch(err){
+        res.status(401).json({
+            message: "please login first"
+        });
+    }
+};
+
 module.exports.signupUser = async function signupUser(req, res){
     try{
         const data = req.body;
@@ -75,6 +91,7 @@ module.exports.signupUser = async function signupUser(req, res){
 module.exports.logoutUser = async function logoutUser(req, res){
     try{
         res.cookie('loggedin', '', {maxAge: 1, withCredentials: true});
+        currentUser = null;
         res.status(200).json({
             message: "user logged out successfully",
         });
@@ -102,6 +119,8 @@ module.exports.checkUserDuplicate = async function checkUserDuplicate(req,res,ne
         next();
     }
 };
+
+module.export
 
 module.exports.protectRoute = async function protectRoute(req, res, next){
     if(req.cookies.isLoggedIn){

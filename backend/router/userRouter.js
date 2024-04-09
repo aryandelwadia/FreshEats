@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const { loginUser, signupUser, logoutUser, checkUserDuplicate, getUserCookie } = require('../controller/userController');
+const { loginUser, signupUser, logoutUser, checkUserDuplicate, getUserCookie, currentUser } = require('../controller/userController');
 
 const userRouter = express.Router();
 
@@ -20,5 +20,9 @@ userRouter
 userRouter
 .route('/getcookie')
 .get(getUserCookie);
+
+userRouter
+.route('/currentUser')
+.get(currentUser);
 
 module.exports = userRouter;
