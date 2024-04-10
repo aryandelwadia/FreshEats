@@ -91,7 +91,7 @@ module.exports.signupUser = async function signupUser(req, res){
 module.exports.logoutUser = async function logoutUser(req, res){
     try{
         res.cookie('loggedin', '', {maxAge: 1, withCredentials: true});
-        currentUser = null;
+        loggedUser = null;
         res.status(200).json({
             message: "user logged out successfully",
         });
@@ -120,7 +120,6 @@ module.exports.checkUserDuplicate = async function checkUserDuplicate(req,res,ne
     }
 };
 
-module.export
 
 module.exports.protectRoute = async function protectRoute(req, res, next){
     if(req.cookies.isLoggedIn){
