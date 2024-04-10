@@ -18,7 +18,7 @@ app.use((req, res, next) => {
     next();
 });
 
-let loggedUser;
+let loggedUser = null;
 
 module.exports.loginUser = async function loginUser(req, res){
     try{
@@ -33,6 +33,7 @@ module.exports.loginUser = async function loginUser(req, res){
                 let token = jwt.sign({payload: uid}, jwt_key);
                 res.cookie("loggedin", token, {sameSite: "None", secure: true, httpOnly: true }).status(200).json({
                     message: "Logged in successfully",
+                    currentUser: loggedUser
                 });
             }
             else{
@@ -56,16 +57,24 @@ module.exports.loginUser = async function loginUser(req, res){
 };
 
 module.exports.currentUser = async function currentUser(req, res){
-    try{
-        let user = loggedUser;
+    try {
+        let token = req.cookies.loggedin;
+        let payload = jwt.verify(token, jwt_key);
+        const uid = payload.payload;
+        const user = await userModel.findById(uid);
+        if (user) {
+            res.json(user)
+        }
+        else {
+            res.status(404).json({ msg: "user not found" })
+        }
+        return true;
+
+    } catch (err) {
         res.json({
-            user
+            message: err.message
         });
-    }
-    catch(err){
-        res.status(401).json({
-            message: "please login first"
-        });
+        return false;
     }
 };
 
@@ -91,9 +100,9 @@ module.exports.signupUser = async function signupUser(req, res){
 module.exports.logoutUser = async function logoutUser(req, res){
     try{
         res.cookie('loggedin', '', {maxAge: 1, withCredentials: true});
-        loggedUser = null;
         res.status(200).json({
             message: "user logged out successfully",
+            currentUser: loggedUser
         });
     }
     catch(err){
@@ -143,7 +152,7 @@ module.exports.protectRoute = async function protectRoute(req, res, next){
 
 module.exports.getUserCookie = async function getUserCookie(req, res, next){
     if(req.cookies['loggedin']){
-        next();
+        // next();
         res.json({
             message: 'true'
         })

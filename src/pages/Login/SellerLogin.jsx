@@ -6,7 +6,7 @@ import axios from 'axios'
 import toast from "react-hot-toast"
 import logo from '../../assets/logo.png'
 
-export default function SellerLogin({ loginState, setLoginState, checkLogin}){
+export default function SellerLogin({ loginState, setLoginState }){
     
     const navigate = useNavigate();
 
@@ -27,7 +27,6 @@ export default function SellerLogin({ loginState, setLoginState, checkLogin}){
                 },{withCredentials: true});
                 if(response.status === 200) {
                     toast.success("Logged In Successfully");
-                    checkLogin();
                     navigate('/');
                 }
                 else if(response.status === 401){

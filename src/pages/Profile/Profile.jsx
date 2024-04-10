@@ -3,7 +3,7 @@ import { useEffect } from "react"
 
 export default function Profile(){
     
-    let user;
+    let user = "as";
 
     useEffect(()=>{    
         userDetail();
@@ -12,7 +12,7 @@ export default function Profile(){
     async function userDetail(){
         try{
             const response = await axios.get("http://localhost:3000/currentUser");
-            user = response;
+            user = response.data;
         }
         catch(err){
             console.log(err.message);

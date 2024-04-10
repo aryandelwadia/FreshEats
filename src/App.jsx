@@ -14,33 +14,32 @@ import axios from 'axios';
 
 function App() {
 
-  const [loginState, setLoginState] = useState(false);
+  const [loginState, setLoginState] = useState();
+  // const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(()=>{
+    login();
+  },[])
 
-    checkUserLogin();
-    checkSellerLogin();
-    
-  },[]);
+  async function login(){
+    let response = axios.get('http://localhost:3000/user/currentUser');
+    console.log(response);
+    if(response ){
+      setLoginState(true);
+    }
+    else{
+      setLoginState(false);
+    }
+  }
   
-  async function checkUserLogin(){
-    const response = await axios.get('http://localhost:5173/user/getcookie', {withCredentials: true})
-    setLoginState(response);   
-  }
-
-  async function checkSellerLogin(){
-    const response = await axios.get('http://localhost:5173/seller/getcookie', {withCredentials: true})
-    setLoginState(response);   
-  }
-
   return (
     <>
       <AnimatePresence>
         <CookiesProvider>
           <Routes>
-            <Route path='/' element={<HomePage loginState={loginState} setLoginState={setLoginState}  checkUserLogin={checkUserLogin} />}/> {/*checkUserLogin={checkUserLogin} */}
-            <Route path='/login' element={<Login loginState={loginState} setLoginState={setLoginState} checkUserLogin={checkUserLogin}/>}/>
-            <Route path='/seller/login' element={<SellerLogin loginState={loginState} setLoginState={setLoginState} checkSellerLogin={checkSellerLogin}/>}/>
+            <Route path='/' element={<HomePage loginState={loginState} setLoginState={setLoginState}  />}/> {/*checkUserLogin={checkUserLogin} */}
+            <Route path='/login' element={<Login loginState={loginState} setLoginState={setLoginState}  />}/>{/*setCurrentUser={setCurrentUser}*/}
+            <Route path='/seller/login' element={<SellerLogin loginState={loginState} setLoginState={setLoginState} />}/>
             <Route path='/signup' element={<SignUp  />}/>
             <Route path='/seller/signup' element={<SellerSignUp />}/>
             <Route path={`/user/profile`} element={<Profile />} />

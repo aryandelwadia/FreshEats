@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-export default function Navbar({ loginState, setLoginState, checkUserLogin }){
+export default function Navbar({ loginState, setLoginState }){
     
     const {scrollYProgress} = useScroll();
     const [showSidebar, setShowSidebar] = useState(false);
@@ -27,9 +27,6 @@ export default function Navbar({ loginState, setLoginState, checkUserLogin }){
         }
     };
 
-    useEffect(()=>{
-        checkUserLogin();
-    },[])
 
     return <>
         <AnimatePresence>
