@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import axios from 'axios'
 import toast from "react-hot-toast"
 
-export default function Login({ loginState, setLoginState, setCurrentUser }){
+export default function Login({ loginState, setLoginState }){
     
     const navigate = useNavigate();
 
@@ -26,8 +26,7 @@ export default function Login({ loginState, setLoginState, setCurrentUser }){
                 },{withCredentials: true});
                 if(response.status === 200) {
                     toast.success("Logged In Successfully");
-                    // setLoginState(true);
-                    // setCurrentUser(response.data.currentUser);
+                    setLoginState(true);
                     navigate('/');
                 }
                 else if(response.status === 401){

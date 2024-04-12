@@ -27,6 +27,7 @@ export default function SellerLogin({ loginState, setLoginState }){
                 },{withCredentials: true});
                 if(response.status === 200) {
                     toast.success("Logged In Successfully");
+                    setLoginState(true);
                     navigate('/');
                 }
                 else if(response.status === 401){

@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const { loginUser, signupUser, logoutUser, checkUserDuplicate, getUserCookie, currentUser } = require('../controller/userController');
+const { loginUser, signupUser, logoutUser, getUserCookie, currentUser } = require('../controller/userController');
 
 const userRouter = express.Router();
 
@@ -11,7 +11,6 @@ userRouter
 userRouter
 .route('/signup')
 .post(signupUser);
-// .post(checkUserDuplicate, signupUser); <-- duplicate function not working
 
 userRouter
 .route('/logout')
