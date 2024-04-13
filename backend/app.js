@@ -1,7 +1,9 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
+require('dotenv').config();
+
 const userRouter = require('./router/userRouter');
 const sellerRouter = require('./router/sellerRouter');
-const cookieParser = require('cookie-parser');
 
 const app = express();
 

@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 var validator = require('email-validator');
+require('dotenv').config();
 
 const db_link = "mongodb+srv://aryandelwadia:aryan2004@cluster0.1uxgu17.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
@@ -56,7 +57,7 @@ userSchema.pre('save',async function(){
     let salt = await bcrypt.genSalt();
     let hashed =await bcrypt.hash(this.password, salt);
     this.password = hashed;
-    this.usertype="customer";
+    this.usertype="Customer";
 });
 
 const userModel = mongoose.model('userModel', userSchema);

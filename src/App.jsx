@@ -13,7 +13,7 @@ import Profile from './pages/Profile/Profile';
 function App() {
 
 
-  const [loginState, setLoginState] = useState(document.cookie.loggedin ? false : true);
+  const [loginState, setLoginState] = useState(document.cookie ? true : false);
   
   return (
     <>

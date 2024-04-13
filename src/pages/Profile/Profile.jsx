@@ -68,7 +68,7 @@ export default function Profile({ setLoginState }) {
                     </Link>
                 </motion.button>
             </div>
-            <div className="flex justify-evenly items-center">
+            <div className="flex justify-evenly items-center bghc p-10 m-10 rounded-lg">
                 <div className="">
                     <Link to={'/'}>
                         <button className="h-12 w-12 bg-[#142328] rounded-full">🏠</button>
