@@ -9,6 +9,7 @@ import { AnimatePresence } from 'framer-motion';
 import SellerLogin from './pages/Login/SellerLogin';
 import SellerSignUp from './pages/SignUp/SellerSignUp';
 import Profile from './pages/Profile/Profile';
+import ShoppingPage from './pages/ShoppingPage/ShoppingPage'
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
             <Route path='/signup' element={<SignUp  />}/>
             <Route path='/seller/signup' element={<SellerSignUp />}/>
             <Route path={`/user/profile`} element={<Profile setLoginState={setLoginState} />} />
+            <Route path='/shopnow' element={<ShoppingPage loginState={loginState} setLoginState={setLoginState}/>} />
           </Routes>
         </CookiesProvider>
       </AnimatePresence>

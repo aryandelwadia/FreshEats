@@ -9,6 +9,8 @@ import logo from '../../assets/logo.png';
 
 export default function SellerSignUp(){
     
+    document.title='SignUp To Shop Now From The Widest Range Of Freshly Handpicked Fruits And Veggies All Over From India';
+
     const navigate = useNavigate();
     const [sellerInfo, setSellerInfo] = useState({state: false, percent: 0})
     

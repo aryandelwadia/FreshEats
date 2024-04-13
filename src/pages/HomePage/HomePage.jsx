@@ -4,6 +4,9 @@ import Navbar from "../../components/Navbar/Navbar"
 import { motion } from "framer-motion"
 
 export default function HomePage({ loginState, setLoginState }){
+    
+    document.title="Welcome To Fresh Eats, India's Biggest Freshly Handpicked Fruits And Veggies Provider.";
+    
     return <>
         <Navbar loginState={loginState} setLoginState={setLoginState} />
         <Info />

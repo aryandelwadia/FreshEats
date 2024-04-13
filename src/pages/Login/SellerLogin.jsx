@@ -8,6 +8,8 @@ import logo from '../../assets/logo.png'
 
 export default function SellerLogin({ loginState, setLoginState }){
     
+    document.title='Login To Shop Now From The Widest Range Of Freshly Handpicked Fruits And Veggies All Over From India';
+
     const navigate = useNavigate();
 
     const handleLogin = async (e)=>{

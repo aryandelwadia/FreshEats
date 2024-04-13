@@ -8,6 +8,8 @@ import { useState } from 'react';
 
 export default function SignUp(){
     
+    document.title='SignUp To Shop Now From The Widest Range Of Freshly Handpicked Fruits And Veggies All Over From India';
+
     const navigate = useNavigate();
     
     const handleSignUp = async function(e){

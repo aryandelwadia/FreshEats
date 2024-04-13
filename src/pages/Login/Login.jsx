@@ -7,6 +7,8 @@ import toast from "react-hot-toast"
 
 export default function Login({ loginState, setLoginState }){
     
+    document.title='Login To Shop Now From The Widest Range Of Freshly Handpicked Fruits And Veggies All Over From India';
+
     const navigate = useNavigate();
 
     const handleLogin = async (e)=>{
