@@ -4,6 +4,7 @@ require('dotenv').config();
 
 const userRouter = require('./router/userRouter');
 const sellerRouter = require('./router/sellerRouter');
+const itemRouter = require('./router/itemRouter')
 
 const app = express();
 
@@ -11,6 +12,7 @@ app.use(express.json());
 app.listen(3000, ()=>{
     console.log('listening on 3000');
 })
+
 app.use(cookieParser());
 
 app.use((req, res, next) => {
@@ -23,3 +25,4 @@ app.use((req, res, next) => {
 
 app.use('/user', userRouter);
 app.use('/seller', sellerRouter);
+app.use('/item', itemRouter);
