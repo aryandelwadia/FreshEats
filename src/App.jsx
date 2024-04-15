@@ -12,22 +12,34 @@ import Profile from './pages/Profile/Profile';
 import ShoppingPage from './pages/ShoppingPage/ShoppingPage'
 
 function App() {
-
-
-  const [loginState, setLoginState] = useState(document.cookie ? true : false);
   
+  function getCookie(name) {
+    const cookies = document.cookie.split('; ');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].split('=');
+      if (cookie[0] === name) {
+        return cookie[1];
+      }
+    }
+    return null; // Cookie not found
+  }
+
+  const [ userLoginState, setUserLoginState] = useState(getCookie('loggedin') ? true : false);
+  const [ sellerLoginState, setSellerLoginState] = useState(getCookie('sellerLoggedin') ? true : false);
+
+
   return (
     <>
       <AnimatePresence>
         <CookiesProvider>
           <Routes>
-            <Route path='/' element={<HomePage loginState={loginState} setLoginState={setLoginState}  />}/> {/*checkUserLogin={checkUserLogin} */}
-            <Route path='/login' element={<Login loginState={loginState} setLoginState={setLoginState}  />}/>{/*setCurrentUser={setCurrentUser}*/}
-            <Route path='/seller/login' element={<SellerLogin loginState={loginState} setLoginState={setLoginState} />}/>
-            <Route path='/signup' element={<SignUp  />}/>
-            <Route path='/seller/signup' element={<SellerSignUp />}/>
-            <Route path={`/user/profile`} element={<Profile setLoginState={setLoginState} />} />
-            <Route path='/shopnow' element={<ShoppingPage loginState={loginState} setLoginState={setLoginState}/>} />
+            <Route path='/' element={<HomePage userLoginState={userLoginState} setUserLoginState={setUserLoginState} />} /> 
+            <Route path='/login' element={<Login userLoginState={userLoginState} setUserLoginState={setUserLoginState} />} />
+            <Route path='/seller/login' element={<SellerLogin userLoginState={sellerLoginState} setUserLoginState={setSellerLoginState} />} />
+            <Route path='/signup' element={<SignUp />} />
+            <Route path='/seller/signup' element={<SellerSignUp />} />
+            <Route path={`/user/profile`} element={<Profile setUserLoginState={setUserLoginState} />} />
+            <Route path='/shopnow' element={<ShoppingPage userLoginState={userLoginState} setUserLoginState={setUserLoginState} />} />
           </Routes>
         </CookiesProvider>
       </AnimatePresence>

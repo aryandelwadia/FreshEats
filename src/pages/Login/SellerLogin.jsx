@@ -6,7 +6,7 @@ import axios from 'axios'
 import toast from "react-hot-toast"
 import logo from '../../assets/logo.png'
 
-export default function SellerLogin({ loginState, setLoginState }){
+export default function SellerLogin({ sellerLoginState, setSellerLoginState }){
     
     document.title='Login To Shop Now From The Widest Range Of Freshly Handpicked Fruits And Veggies All Over From India';
 
@@ -29,7 +29,7 @@ export default function SellerLogin({ loginState, setLoginState }){
                 },{withCredentials: true});
                 if(response.status === 200) {
                     toast.success("Logged In Successfully");
-                    setLoginState(true);
+                    setSellerLoginState(true);
                     navigate('/');
                 }
                 else if(response.status === 401){

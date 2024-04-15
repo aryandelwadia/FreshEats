@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-export default function Navbar({ loginState, setLoginState }){
+export default function Navbar({ userLoginState, setUserLoginState }){
     
     const {scrollYProgress} = useScroll();
     const [showSidebar, setShowSidebar] = useState(false);
@@ -19,7 +19,7 @@ export default function Navbar({ loginState, setLoginState }){
         const response = await axios.post('http://localhost:3000/user/logout', {},{withCredentials: true});
         try{
 
-            setLoginState(false);
+            setUserLoginState(false);
             toast.success("You have logged out successfully");
         }
         catch(err){
@@ -43,11 +43,11 @@ export default function Navbar({ loginState, setLoginState }){
                             <li className='my-4 text-xl hover:underline fredoka'> <button>Trending Recipes</button> </li>
                             <li className='my-4 text-xl hover:underline fredoka'><button>What's New</button></li>
                             <li className='my-4 text-xl hover:underline fredoka'><button><Link to={'seller/login'}>Sell On Our Website</Link></button></li>
-                            {loginState ? <li className='my-4 text-xl hover:underline fredoka'><button>Cart</button></li> : <li className='my-4 text-xl hover:underline fredoka'><button onClick={()=>{toast.error("Login First")}}><Link to={'login'}>Cart</Link></button></li>}
-                            {loginState ? <li className='my-4 text-xl hover:underline fredoka'><button><Link to={`/user/profile`}>Profile</Link></button></li> : <li className='my-4 text-xl hover:underline fredoka'><button onClick={()=>{toast.error("Login First")}} ><Link to={'login'}>Profile</Link></button></li>}
-                            {!loginState && <li className='my-4 text-xl hover:underline fredoka'>{!loginState && <button><Link to={'/login'}>Login</Link></button>}</li> }               
-                            <li className='my-4 text-xl hover:underline fredoka'>{loginState && <button onClick={handleLogout}>Logout</button>}</li>                        
-                            {!loginState && <li className='my-4 text-xl hover:underline fredoka'><button><Link to={'/signup'}>Sign Up</Link></button></li>}
+                            {userLoginState ? <li className='my-4 text-xl hover:underline fredoka'><button>Cart</button></li> : <li className='my-4 text-xl hover:underline fredoka'><button onClick={()=>{toast.error("Login First")}}><Link to={'login'}>Cart</Link></button></li>}
+                            {userLoginState ? <li className='my-4 text-xl hover:underline fredoka'><button><Link to={`/user/profile`}>Profile</Link></button></li> : <li className='my-4 text-xl hover:underline fredoka'><button onClick={()=>{toast.error("Login First")}} ><Link to={'login'}>Profile</Link></button></li>}
+                            {!userLoginState && <li className='my-4 text-xl hover:underline fredoka'>{!userLoginState && <button><Link to={'/login'}>Login</Link></button>}</li> }               
+                            <li className='my-4 text-xl hover:underline fredoka'>{userLoginState && <button onClick={handleLogout}>Logout</button>}</li>                        
+                            {!userLoginState && <li className='my-4 text-xl hover:underline fredoka'><button><Link to={'/signup'}>Sign Up</Link></button></li>}
                         </motion.ul>
                     </div>
                 </motion.div>}
@@ -65,8 +65,8 @@ export default function Navbar({ loginState, setLoginState }){
             <div className="mt-12">
                 <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9}} className="mx-5 text-3xl hover:underline fredoka"><Link to={'/shopnow'}>Shop Now</Link></motion.button>
                 <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9}} className="mx-5 text-3xl hover:underline fredoka">Trending Recipies</motion.button>
-                {!loginState && <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9, rotate: '2deg'}}  className="mx-5 text-3xl bg p-4 px-6 fredoka" ><Link to={'login'}>Login</Link></motion.button>}
-                {loginState && <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9, rotate: '2deg'}}  className="mx-5 text-3xl bg p-4 px-6 fredoka" onClick={handleLogout} >Logout</motion.button>}
+                {!userLoginState && <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9, rotate: '2deg'}}  className="mx-5 text-3xl bg p-4 px-6 fredoka" ><Link to={'login'}>Login</Link></motion.button>}
+                {userLoginState && <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9, rotate: '2deg'}}  className="mx-5 text-3xl bg p-4 px-6 fredoka" onClick={handleLogout} >Logout</motion.button>}
                 <button className='mr-10'><img src="src/assets/More Button.png" alt="" onClick={handleSidebar} /></button>
             </div>
         </div>        

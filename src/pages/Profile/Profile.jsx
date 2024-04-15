@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 
-export default function Profile({ setLoginState }) {
+export default function Profile({ setUserLoginState }) {
 
     const navigate = useNavigate();
 
@@ -44,17 +44,17 @@ export default function Profile({ setLoginState }) {
         userDetail();
     }, []);
 
-    async function handleLogout(){
-        
-        const response = await axios.post('http://localhost:3000/user/logout', {},{withCredentials: true});
-        try{
+    async function handleLogout() {
 
-            setLoginState(false);
+        const response = await axios.post('http://localhost:3000/user/logout', {}, { withCredentials: true });
+        try {
+
+            setUserLoginState(false);
             navigate('/');
             toast.success("You have logged out successfully");
-            
+
         }
-        catch(err){
+        catch (err) {
             toast.error("Error Occurred123");
         }
     };
@@ -75,7 +75,11 @@ export default function Profile({ setLoginState }) {
                     </Link>
                     <img src={LOGO} alt="" className="rounded-full bg-white h-60 w-60 m-5
                     " />
-                    <button className="fredoka text-3xl text-[#06c167] hover:underline">Cart</button><br />
+                    {/* <form action="/user/uploadimage" method="post" encType="multipart/form-data">
+                        <input type="file" name="profileimage" placeholder="" />
+                        <button type="submit" className="fredoka text-3xl text-[#06c167] hover:underline"><Link to={'/user/profile'}>Upload</Link></button>
+                    </form> */}
+                    <button className="fredoka text-3xl text-[#06c167] hover:underline mx-auto">Cart</button><br />
                     <button className="fredoka text-3xl text-[#06c167] hover:underline" onClick={handleLogout}>Logout</button>
                 </div>
                 <div>

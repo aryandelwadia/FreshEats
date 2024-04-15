@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import axios from 'axios'
 import toast from "react-hot-toast"
 
-export default function Login({ loginState, setLoginState }){
+export default function Login({ userLoginState, setUserLoginState }){
     
     document.title='Login To Shop Now From The Widest Range Of Freshly Handpicked Fruits And Veggies All Over From India';
 
@@ -28,7 +28,7 @@ export default function Login({ loginState, setLoginState }){
                 },{withCredentials: true});
                 if(response.status === 200) {
                     toast.success("Logged In Successfully");
-                    setLoginState(true);
+                    setUserLoginState(true);
                     navigate('/');
                 }
                 else if(response.status === 401){

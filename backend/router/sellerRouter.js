@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const { sellerLogin, sellerSignup, sellerLogout, getSellerCookie } = require('../controller/sellerController');
+const { sellerLogin, sellerSignup, sellerLogout, currentSeller } = require('../controller/sellerController');
 
 const sellerRouter = express.Router();
 
@@ -17,7 +17,7 @@ sellerRouter
 .post(sellerLogout);
 
 sellerRouter
-.route('/getcookie')
-.get(getSellerCookie);
+.route('/currentseller')
+.get(currentSeller);
 
 module.exports = sellerRouter;

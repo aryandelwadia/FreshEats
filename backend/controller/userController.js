@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const multer = require('multer');
 
 app.use(cors());
 app.use(cookieParser());
@@ -71,7 +72,7 @@ module.exports.currentUser = async function currentUser(req, res){
         return true;
 
     } catch (err) {
-        res.json({
+        res.status(500).json({
             message: err.message
         });
         return false;
@@ -127,22 +128,5 @@ module.exports.protectRoute = async function protectRoute(req, res, next){
         res.json({
             message: 'User Not Logged In'
         });
-    }
-};
-
-module.exports.getUserCookie = async function getUserCookie(req, res, next){
-    if(req.cookies['loggedin']){
-        // next();
-        res.json({
-            message: 'true'
-        })
-        return true;
-
-    }
-    else{
-        res.json({
-            message: "please login first!!"
-        });
-        return false;
     }
 };

@@ -4,7 +4,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import Items from "./Items";
 import { useEffect, useState } from "react";
 
-export default function ShoppingPage({ loginState, setLoginState }) {
+export default function ShoppingPage({ userLoginState, setUserLoginState }) {
 
     document.title = 'Shop Now From The Widest Range Of Freshly Handpicked Fruits And Veggies All Over From India';
 
@@ -27,7 +27,7 @@ export default function ShoppingPage({ loginState, setLoginState }) {
     }, [])
 
     return <>
-        <Navbar loginState={loginState} setLoginState={setLoginState} />
+        <Navbar loginState={userLoginState} setLoginState={setUserLoginState} />
         <p className="text-center text-7xl cantora-one-regular ">Shop Now </p>
         <hr className="w-4/5 m-auto my-10" />
         <div className="flex justify-center align-middle mb-10 flex-wrap">

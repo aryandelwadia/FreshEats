@@ -72,7 +72,7 @@ sellerSchema.pre('save',async function(){
     const salt = await bcrypt.genSalt();
     const hased  = await bcrypt.hash(this.password,salt);
     this.password = hased;
-    this.usertype = "seller";
+    this.usertype = "Seller";
 })
 
 const sellerModel = mongoose.model("sellerModel", sellerSchema);

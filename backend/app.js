@@ -1,6 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
+const multer = require('multer');
 
 const userRouter = require('./router/userRouter');
 const sellerRouter = require('./router/sellerRouter');
@@ -26,3 +27,23 @@ app.use((req, res, next) => {
 app.use('/user', userRouter);
 app.use('/seller', sellerRouter);
 app.use('/item', itemRouter);
+
+// const storage = multer.diskStorage({
+//     destination: function(req, file, cd){
+//         return cd(null, `./upload`);
+//     },
+//     filename: function(req, file, cd){
+//         return cd(null, `hi`);
+//     },
+// })
+
+// const upload = multer({ storage });
+
+
+// app.post('/user/uploadimage', upload.single('profileimage'), function(req, res, next){
+    
+//     console.log(req.file);
+//     res.json({
+//         message: 'image uploaded'
+//     })
+// });
