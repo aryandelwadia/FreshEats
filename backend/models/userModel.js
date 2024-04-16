@@ -50,6 +50,22 @@ const userSchema = mongoose.Schema({
     },
     usertype: {
         type: String,
+    },
+    gender: {
+        type: String,
+    },
+    dob: {
+        type: Date,
+    },
+    address: {
+        type: String,
+    },
+    favitem: {
+        type: String,
+    },
+    freshpoints: {
+        type: Number,
+        default: 0,
     }
 });
 
