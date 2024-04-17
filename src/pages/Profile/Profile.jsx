@@ -135,14 +135,14 @@ export default function Profile({ setUserLoginState }) {
                     <div className="flex justify-evenly align-middle p-3 w-full">
                         <div className=" fredoka text-lg w-1/2 mr-1">
                             <label htmlFor="">Gender</label><br />
-                            <select name="gender" className=" bg-[#142328] text-[#06c167] rounded-sm border-[#1e5037] border p-1 w-full h-10">
+                            <select name="gender" disabled={true} className=" bg-[#142328] text-[#06c167] rounded-sm border-[#1e5037] border p-1 w-full h-10">
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                             </select>
                         </div>
                         <div className="fredoka text-lg w-1/2" >
                             <label htmlFor="">Date Of Birth</label><br />
-                            <input type="date" className=" bg-[#142328] text-[#06c167] rounded-sm border-[#1e5037] border p-1 w-full"></input>
+                            <input type="date" disabled={true} className=" bg-[#142328] text-[#06c167] rounded-sm border-[#1e5037] border p-1 w-full"></input>
                         </div>
                     </div>
                     <div className="fredoka text-lg flex justify-center align-middle p-3">

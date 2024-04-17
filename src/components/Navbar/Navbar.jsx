@@ -27,6 +27,27 @@ export default function Navbar({ userLoginState, setUserLoginState }){
         }
     };
 
+    useEffect(()=>{
+        function getCookie(name) {
+            const cookies = document.cookie.split('; ');
+            for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].split('=');
+              if (cookie[0] === name) {
+                return cookie[1];
+              }
+            }
+            return null; // Cookie not found
+          }
+          
+          let l = getCookie('loggedin') ? true : false;
+
+          if(l ){
+            setUserLoginState(true)
+          }
+          else{
+            setUserLoginState(false);
+          }
+    },[]);
 
     return <>
         <AnimatePresence>
@@ -43,8 +64,8 @@ export default function Navbar({ userLoginState, setUserLoginState }){
                             <li className='my-4 text-xl hover:underline fredoka'> <button>Trending Recipes</button> </li>
                             <li className='my-4 text-xl hover:underline fredoka'><button>What's New</button></li>
                             <li className='my-4 text-xl hover:underline fredoka'><button><Link to={'seller/login'}>Sell On Our Website</Link></button></li>
-                            {userLoginState ? <li className='my-4 text-xl hover:underline fredoka'><button>Cart</button></li> : <li className='my-4 text-xl hover:underline fredoka'><button onClick={()=>{toast.error("Login First")}}><Link to={'login'}>Cart</Link></button></li>}
-                            {userLoginState ? <li className='my-4 text-xl hover:underline fredoka'><button><Link to={`/user/profile`}>Profile</Link></button></li> : <li className='my-4 text-xl hover:underline fredoka'><button onClick={()=>{toast.error("Login First")}} ><Link to={'login'}>Profile</Link></button></li>}
+                            {userLoginState ? <li className='my-4 text-xl hover:underline fredoka'><button><Link to={'/cart'}>Cart</Link></button></li> : <li className='my-4 text-xl hover:underline fredoka'><button onClick={()=>{toast.error("Login First")}}><Link to={'/login'}>Cart</Link></button></li>}
+                            {userLoginState ? <li className='my-4 text-xl hover:underline fredoka'><button><Link to={`/user/profile`}>Profile</Link></button></li> : <li className='my-4 text-xl hover:underline fredoka'><button onClick={()=>{toast.error("Login First")}} ><Link to={'/login'}>Profile</Link></button></li>}
                             {!userLoginState && <li className='my-4 text-xl hover:underline fredoka'>{!userLoginState && <button><Link to={'/login'}>Login</Link></button>}</li> }               
                             <li className='my-4 text-xl hover:underline fredoka'>{userLoginState && <button onClick={handleLogout}>Logout</button>}</li>                        
                             {!userLoginState && <li className='my-4 text-xl hover:underline fredoka'><button><Link to={'/signup'}>Sign Up</Link></button></li>}
@@ -65,7 +86,7 @@ export default function Navbar({ userLoginState, setUserLoginState }){
             <div className="mt-12">
                 <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9}} className="mx-5 text-3xl hover:underline fredoka"><Link to={'/shopnow'}>Shop Now</Link></motion.button>
                 <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9}} className="mx-5 text-3xl hover:underline fredoka">Trending Recipies</motion.button>
-                {!userLoginState && <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9, rotate: '2deg'}}  className="mx-5 text-3xl bg p-4 px-6 fredoka" ><Link to={'login'}>Login</Link></motion.button>}
+                {!userLoginState && <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9, rotate: '2deg'}}  className="mx-5 text-3xl bg p-4 px-6 fredoka" ><Link to={'/login'}>Login</Link></motion.button>}
                 {userLoginState && <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9, rotate: '2deg'}}  className="mx-5 text-3xl bg p-4 px-6 fredoka" onClick={handleLogout} >Logout</motion.button>}
                 <button className='mr-10'><img src="src/assets/More Button.png" alt="" onClick={handleSidebar} /></button>
             </div>

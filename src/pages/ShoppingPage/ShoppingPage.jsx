@@ -27,7 +27,7 @@ export default function ShoppingPage({ userLoginState, setUserLoginState }) {
     }, [])
 
     return <>
-        <Navbar loginState={userLoginState} setLoginState={setUserLoginState} />
+        <Navbar userLoginState={userLoginState} setUserLoginState={setUserLoginState} />
         <p className="text-center text-7xl cantora-one-regular ">Shop Now </p>
         <hr className="w-4/5 m-auto my-10" />
         <div className="flex justify-center align-middle mb-10 flex-wrap">

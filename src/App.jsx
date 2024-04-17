@@ -10,6 +10,7 @@ import SellerLogin from './pages/Login/SellerLogin';
 import SellerSignUp from './pages/SignUp/SellerSignUp';
 import Profile from './pages/Profile/Profile';
 import ShoppingPage from './pages/ShoppingPage/ShoppingPage'
+import Cart from './pages/Cart/Cart';
 
 function App() {
   
@@ -40,6 +41,7 @@ function App() {
             <Route path='/seller/signup' element={<SellerSignUp />} />
             <Route path={`/user/profile`} element={<Profile setUserLoginState={setUserLoginState} />} />
             <Route path='/shopnow' element={<ShoppingPage userLoginState={userLoginState} setUserLoginState={setUserLoginState} />} />
+            <Route path='/cart' element={<Cart userLoginState={userLoginState} setUserLoginState={setUserLoginState} />} />
           </Routes>
         </CookiesProvider>
       </AnimatePresence>
