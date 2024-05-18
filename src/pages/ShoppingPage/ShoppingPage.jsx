@@ -3,36 +3,16 @@ import Footer from "../../components/Footer/Footer";
 import Navbar from "../../components/Navbar/Navbar";
 import Items from "./Items";
 import { useEffect, useState } from "react";
-
+import io from "socket.io-client";
 
 export default function ShoppingPage({ userLoginState, setUserLoginState }) {
 
     document.title = 'Shop Now From The Widest Range Of Freshly Handpicked Fruits And Veggies All Over From India';
 
+    const socket = io();
     const [itemsdata, setItemsdata] = useState([]);
-    const [socket, setSocket] = useState(null);
 
-    useEffect(() => {
-        const ws = new WebSocket("ws://localhost:3000");
-        setSocket(ws);
 
-    }, []);
-
-    useEffect(() => {
-        if (socket) {
-            socket.onopen = () => {
-                console.log('WebSocket connected');
-            };
-
-            socket.onclose = () => {
-                console.log('WebSocket disconnected');
-            };
-
-            socket.onerror = (error) => {
-                console.error('WebSocket error:', error);
-            };
-        }
-    }, []);
 
     useEffect(() => {
 

@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const itemModel = require('../models/itemModel');
+const io = require()
 
 const app = express();
 app.use(cors());
@@ -31,7 +32,8 @@ module.exports.additem = async function additem(req,res){
 module.exports.getitem = async function getitem(req,res){
     try{
         let data = await itemModel.find({});
-        res.json(data)
+        // res.json(data);
+        
     }
     catch(err){
         res.status(500).json({
