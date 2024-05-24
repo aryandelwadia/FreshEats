@@ -17,6 +17,7 @@ app.use((req, res, next) => {
     next();
 });
 app.use(express.json());
+app.use(express.urlencoded({extended: false}));
 
 const server = http.createServer(app);
 const io = new Server(server, {
