@@ -35,10 +35,9 @@ export default function ShoppingPage({ userLoginState, setUserLoginState }) {
         <p className="text-center text-7xl cantora-one-regular ">Shop Now </p>
         <hr className="w-4/5 m-auto my-10" />
         <div className="flex justify-center align-middle mb-10 flex-wrap">
-            <Items name="Heirloom Tomato" price='5.99' place="Grown in Vapi-Valsad Guj" />
             {itemsdata.length > 0 ? (
                 itemsdata.map(item => (
-                    <Items key={item._id} name={item.itemname} price={item.itemprice} place={item.prodplace} />
+                    <Items key={item._id} name={item.itemname} price={item.itemprice} place={item.prodplace} img={item.img} />
                 ))
             ) : (
                 <p>No items available</p>

@@ -27,6 +27,10 @@ const itemSchema = mongoose.Schema({
     prodplace: {
         type: String,
         required: true
+    },
+    img: {
+        type: String,
+        required: true,
     }
 });
 

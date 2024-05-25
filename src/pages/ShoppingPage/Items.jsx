@@ -2,7 +2,7 @@ export default function Items(props){
     return<>
         <div className="bghc rounded-xl m-10">
             <div className="w-96 ">
-                <img src="src/assets/tomato.png" alt="" className="rounded-t-xl"/>
+                <img src={props.img} alt="" className="rounded-t-xl h-64 w-96 bg-cover"/>
             </div>
             <div className="p-5">
                 <p className="fredoka text-xl">{props.name}</p>
