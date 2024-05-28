@@ -1,18 +1,19 @@
-const express = require('express');
-const mongoose = require('mongoose');
-require("dotenv").config();
-
-const app = express();
+const mongoose = require("mongoose");
 const db_link = "mongodb+srv://aryandelwadia:aryan2004@cluster0.1uxgu17.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
 mongoose.connect(db_link)
 .then(function(db){
-    console.log('itemsdb connected')
+    console.log("cartdb connected");
 })
 .catch(function(err){
-    console.log(err)
+    console.log(err);
 });
 
-const itemSchema = mongoose.Schema({
+const cartSchema = mongoose.Schema({
+    email: {
+        type: String,
+        required: true
+    },
     itemname: {
         type: String,
         required: true
@@ -32,6 +33,6 @@ const itemSchema = mongoose.Schema({
     }
 });
 
-const itemModel = mongoose.model('itemModel', itemSchema);
+const cartModel = mongoose.model('cartModel', cartSchema);
 
-module.exports = itemModel;
+module.exports = cartModel;
