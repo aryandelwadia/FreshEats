@@ -5,12 +5,13 @@ const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+require('dotenv').config();
 const multer = require('multer');
 
 app.use(cors());
 app.use(cookieParser());
 
-const jwt_key = "wieuhfwiuefnq084f0cndasjec218coh23ecn8o9denc23ydo2d3m2839cdyh23";
+const jwt_key = process.env.JWT_KEY;
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');

@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 require("dotenv").config();
 
 const app = express();
-const db_link = "mongodb+srv://aryandelwadia:aryan2004@cluster0.1uxgu17.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const db_link = process.env.DB;
 mongoose.connect(db_link)
 .then(function(db){
     console.log('itemsdb connected')

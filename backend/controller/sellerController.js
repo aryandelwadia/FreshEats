@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const sellerModel = require("../models/sellerModel");
+require('dotenv').config();
 
 const app = express();
 
@@ -13,7 +14,7 @@ app.use((req, res, next) => {
     next();
 });
 
-const seller_jwt_key = "dsn7dh87h1208e7dg0yds6g1dwg1078ge21e";
+const seller_jwt_key = process.env.SELLER_JWT_KEY;
 
 module.exports.sellerLogin = async function sellerLogin(req, res) {
     const data = req.body;

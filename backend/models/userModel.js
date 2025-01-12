@@ -3,9 +3,9 @@ const app = express();
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 var validator = require('email-validator');
-require('dotenv').config();
+require("dotenv").config();
 
-const db_link = "mongodb+srv://aryandelwadia:aryan2004@cluster0.1uxgu17.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const db_link = process.env.DB;
 
 mongoose.connect(db_link)
 .then(function(db){
@@ -13,7 +13,7 @@ mongoose.connect(db_link)
 })
 .catch(function(err){
     console.log(err);
-})
+});
 
 const userSchema = mongoose.Schema({
     fname:{
