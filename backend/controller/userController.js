@@ -114,20 +114,27 @@ module.exports.logoutUser = async function logoutUser(req, res){
 };
 
 module.exports.protectRoute = async function protectRoute(req, res, next){
-    if(req.cookies.isLoggedIn){
-        let isverified = jwt.verify(req.cookies.loggedin,jwt_key);
-        if(isverified){
-            next();
+    try{   
+        if(req.cookies.loggedin){
+            let isverified = jwt.verify(req.cookies.loggedin,jwt_key);
+            if(isverified){
+                next();
+            }
+            else{
+                res.status(401).json({
+                    message: "user not verified"
+                });
+            }
         }
         else{
-            res.status(404).json({
-                message: "user not verified"
+            res.status(401).json({
+                message: 'User Not Logged In'
             });
         }
     }
-    else{
-        res.json({
-            message: 'User Not Logged In'
-        });
+    catch(err){
+        res.status(404).json({
+            message: err.message
+        })
     }
 };
