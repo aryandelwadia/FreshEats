@@ -23,7 +23,7 @@ export default function Navbar({ userLoginState, setUserLoginState }){
             toast.success("You have logged out successfully");
         }
         catch(err){
-            toast.error("Error Occurred123");
+            toast.error("Error Occurred");
         }
     };
 
