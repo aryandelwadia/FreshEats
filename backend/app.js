@@ -3,6 +3,7 @@ const http = require('http');
 const { Server } = require('socket.io');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
+const path = require("path")
 
 const userRouter = require('./router/userRouter');
 const sellerRouter = require('./router/sellerRouter');
@@ -18,6 +19,9 @@ app.use((req, res, next) => {
 });
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+// app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/uploads", express.static("uploads"));
+
 
 const server = http.createServer(app);
 const io = new Server(server, {

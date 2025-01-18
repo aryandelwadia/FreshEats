@@ -10,6 +10,7 @@ import toast from 'react-hot-toast';
 export default function Profile({ setUserLoginState }) {
 
     const navigate = useNavigate();
+    const [preview, setPreview] = useState('');
 
     const [userData, setUserData] = useState({
         fname: "",
@@ -23,6 +24,7 @@ export default function Profile({ setUserLoginState }) {
         address: '',
         favitem: '',
         freshpoints: '',
+        profilePic: '',
     });
 
     useEffect(() => {
@@ -44,7 +46,10 @@ export default function Profile({ setUserLoginState }) {
                         address: user.address,
                         favitem: user.favitem,
                         freshpoints: user.freshpoints,
+                        profilePic: user.profilePic
                     });
+
+                    setPreview(`D:/HTML CSS JS/FreshEats/backend/uploads/${userData.profilePic}`);
                 }
             } catch (err) {
                 toast.error("Unable To Fecth Details");
@@ -56,7 +61,6 @@ export default function Profile({ setUserLoginState }) {
     }, []);
 
     async function handleLogout() {
-
         const response = await axios.post('http://localhost:3000/user/logout', {}, { withCredentials: true });
         try {
 
@@ -86,8 +90,15 @@ export default function Profile({ setUserLoginState }) {
                             <svg width="64px" height="64px" viewBox="-4.8 -4.8 57.60 57.60" fill="none" xmlns="http://www.w3.org/2000/svg" transform="matrix(-1, 0, 0, 1, 0, 0)" stroke="#1a1a1a"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect width="48" height="48" fill="white" fillOpacity="0.01"></rect> <path d="M41.9999 24H5.99992" stroke="#ffffff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M30 12L42 24L30 36" stroke="#ffffff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg>
                         </button>
                     </Link>
+                    <form action="http://localhost:3000/user/profilePic" encType="multipart/form-data" method="post">
+                        <div className="form-group">
+                            <input type="file" className="form-control-file" name="image" />
+                            <button type="submit">Change ProfilePic</button>            
+                        </div>
+                    </form>
                     <div className="flex justify-center p-3 w-full">
-                        <img src={LOGO} alt="" className="rounded-full bg-white h-60 w-60 " />
+                        <img src={preview} alt="" className="rounded-full bg-white h-60 w-60 " />
+                        {/* profilePic */}
                     </div>
 
 

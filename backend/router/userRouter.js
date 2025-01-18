@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-const { loginUser, signupUser, logoutUser, currentUser, protectRoute } = require('../controller/userController');
+const { loginUser, signupUser, logoutUser, currentUser, protectRoute, userProfilePic } = require('../controller/userController');
 
 const userRouter = express.Router();
 
@@ -21,5 +21,9 @@ userRouter
 userRouter
 .route('/currentUser')
 .get(currentUser);
+
+userRouter
+.route('/profilePic')
+.post(userProfilePic);
 
 module.exports = userRouter;

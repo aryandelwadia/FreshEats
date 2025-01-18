@@ -66,6 +66,10 @@ const userSchema = mongoose.Schema({
     freshpoints: {
         type: Number,
         default: 0,
+    },
+    profilePic: {
+        type: String,
+        default: "default.png"
     }
 });
 

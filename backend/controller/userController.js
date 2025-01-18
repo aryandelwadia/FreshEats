@@ -7,11 +7,29 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 require('dotenv').config();
 const multer = require('multer');
+// const path = require('path');
+// const crypto = require('crypto');
+const upload = require('../config/multerConfig');
 
 app.use(cors());
 app.use(cookieParser());
 
 const jwt_key = process.env.JWT_KEY;
+
+// const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//       cb(null, './uploads')
+//     },
+//     filename: function (req, file, cb) {
+//       crypto.randomBytes(12, function(err, name){
+//         const fn = name.toString("hex") + path.extname(file.originalname);
+//         cb(null, fn);
+//       });
+//     }
+//   });
+  
+// const upload = multer({ storage: storage })
+
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
@@ -138,3 +156,36 @@ module.exports.protectRoute = async function protectRoute(req, res, next){
         })
     }
 };
+
+module.exports.userProfilePic = async function userProfilePic(req, res){
+    try{
+        const token = req.cookies.loggedin;
+        if(!token){
+            return res.status(401).json({
+                message: "Please Login",
+            });
+        }
+        const payload = jwt.verify(token, jwt_key);
+        const uid = payload.payload;
+        
+        
+        upload.single("image")(req, res, async function(err){
+            if(err){
+                return res.status(400).json({
+                    message: err.message
+                });
+            }
+
+            const data = req.body;
+            let user = await userModel.findOneAndUpdate({_id: uid}, {profilePic: req.file.filename}, {new: true});
+            res.status(200).json({
+                message: "File Uploaded Successfully",
+            })
+        });
+    }
+    catch(err){
+        res.status(404).json({
+            message: err.message
+        })
+    }
+}
