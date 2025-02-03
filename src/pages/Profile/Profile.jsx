@@ -49,7 +49,8 @@ export default function Profile({ setUserLoginState }) {
                         profilePic: user.profilePic
                     });
 
-                    setPreview(`D:/HTML CSS JS/FreshEats/backend/uploads/${userData.profilePic}`);
+                    const previewUrl = `http://localhost:3000/uploads/${user.profilePic}`;
+                    setPreview(previewUrl);
                 }
             } catch (err) {
                 toast.error("Unable To Fecth Details");
@@ -97,7 +98,7 @@ export default function Profile({ setUserLoginState }) {
                         </div>
                     </form>
                     <div className="flex justify-center p-3 w-full">
-                        <img src={preview} alt="" className="rounded-full bg-white h-60 w-60 " />
+                        <img src={preview} alt="" className="rounded-full bg-contain h-60 w-60" />
                         {/* profilePic */}
                     </div>
 
