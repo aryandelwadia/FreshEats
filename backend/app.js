@@ -7,7 +7,8 @@ const path = require("path")
 
 const userRouter = require('./router/userRouter');
 const sellerRouter = require('./router/sellerRouter');
-const itemRouter = require('./router/itemRouter')
+const itemRouter = require('./router/itemRouter');
+const cartRouter = require("./router/cartRouter");
 
 const app = express();
 app.use((req, res, next) => {
@@ -41,3 +42,4 @@ app.use(cookieParser());
 app.use('/user', userRouter);
 app.use('/seller', sellerRouter);
 app.use('/item', itemRouter);
+app.use('/cart', cartRouter);

@@ -2,6 +2,7 @@ import Footer from "../../components/Footer/Footer";
 import Navbar from "../../components/Navbar/Navbar";
 import CartItems from "./CartItems";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Cart({ userLoginState, setUserLoginState }) {
@@ -10,12 +11,13 @@ export default function Cart({ userLoginState, setUserLoginState }) {
 
     const [itemsdata, setItemsdata] = useState([]);
     const [totalprice, setTotalPrice] = useState(0);
+    const navigate = useNavigate();
 
     useEffect(() => {
 
         async function handledata() {
             try {
-                let response = await axios.get('http://localhost:3000/item/getitem', { withCredentials: true });
+                let response = await axios.post('http://localhost:3000/cart/showItem',{},{ withCredentials: true });
                 setItemsdata(response.data);
             }
             catch (err) {
@@ -33,6 +35,12 @@ export default function Cart({ userLoginState, setUserLoginState }) {
         });
         setTotalPrice(totalprice);
     }, [itemsdata]);
+
+    useEffect(() => {
+        if(!userLoginState){
+            navigate('/');
+        }
+    }, [userLoginState]);
 
     return <>
         <Navbar userLoginState={userLoginState} setUserLoginState={setUserLoginState} />

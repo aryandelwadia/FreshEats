@@ -2,7 +2,7 @@ export default function CartItems(props){
     return<>
         <div className="bghc rounded-xl m-10 flex w-1/3">
             <div className="w-60 ">
-                <img src="src/assets/tomato.png" alt="" className="rounded-l-xl"/>
+                <img src="src/assets/logo.png" alt="" className="rounded-l-xl"/>
             </div>
             <div className="p-5">
                 <p className="fredoka text-xl">{props.name}</p>

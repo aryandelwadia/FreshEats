@@ -13,9 +13,16 @@ export default function ShoppingPage({ userLoginState, setUserLoginState }) {
 
     const [itemsdata, setItemsdata] = useState([]);
 
-    function handleAddToCart(item){
+    async function handleAddToCart(item){
         if(userLoginState){
-           console.log(item)
+        //    console.log(item);
+            let response = await axios.post('http://localhost:3000/cart/addItem', item, {withCredentials: true});
+            if(response.status === 200){
+                toast.success("Item Added to Cart Successfully");
+            }
+            else{
+                toast.error("Error Occurred");
+            }
         }
         else{
             toast.error("Login First");

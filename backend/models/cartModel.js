@@ -30,6 +30,7 @@ const cartSchema = mongoose.Schema({
     img: {
         type: String,
         required: true,
+        default: "default.png"
     }
 });
 

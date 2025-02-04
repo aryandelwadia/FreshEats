@@ -7,29 +7,12 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 require('dotenv').config();
 const multer = require('multer');
-// const path = require('path');
-// const crypto = require('crypto');
 const upload = require('../config/multerConfig');
 
 app.use(cors());
 app.use(cookieParser());
 
 const jwt_key = process.env.JWT_KEY;
-
-// const storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//       cb(null, './uploads')
-//     },
-//     filename: function (req, file, cb) {
-//       crypto.randomBytes(12, function(err, name){
-//         const fn = name.toString("hex") + path.extname(file.originalname);
-//         cb(null, fn);
-//       });
-//     }
-//   });
-  
-// const upload = multer({ storage: storage })
-
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
