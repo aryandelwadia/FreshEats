@@ -4,6 +4,9 @@ const { Server } = require('socket.io');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
 const path = require("path")
+const dbconnect = require('./config/db');
+
+dbconnect();
 
 const userRouter = require('./router/userRouter');
 const sellerRouter = require('./router/sellerRouter');
@@ -12,14 +15,14 @@ const cartRouter = require("./router/cartRouter");
 
 const app = express();
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    next();
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  next();
 });
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 
@@ -32,7 +35,7 @@ const io = new Server(server, {
   }
 });
 
-io.on("connection", (socket)=>{});
+io.on("connection", (socket) => { });
 
 server.listen(3000, () => {
   console.log('Server is running on port 3000');

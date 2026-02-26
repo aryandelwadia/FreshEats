@@ -1,20 +1,19 @@
 const express = require("express");
-const app = express();
-
 const { addToCart, removeFromCart, showCart } = require("../controller/cartController");
+const { isUserLoggedIn } = require("../middlewares/auth.middleware");
 
 const cartRouter = express.Router();
 
 cartRouter
-.route('/addItem')
-.post(addToCart);
+    .route('/addItem')
+    .post(isUserLoggedIn, addToCart);
 
 cartRouter
-.route('/removeItem')
-.post(removeFromCart);
+    .route('/removeItem')
+    .post(isUserLoggedIn, removeFromCart);
 
 cartRouter
-.route('/showItem')
-.post(showCart);
+    .route('/showItem')
+    .post(isUserLoggedIn, showCart);
 
 module.exports = cartRouter;

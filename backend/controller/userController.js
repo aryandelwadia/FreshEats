@@ -22,151 +22,104 @@ app.use((req, res, next) => {
     next();
 });
 
-module.exports.loginUser = async function loginUser(req, res){
-    try{
+module.exports.loginUser = async function loginUser(req, res) {
+    try {
         const data = req.body;
-        let user = await userModel.findOne({email: data.email});
-        
-        if(user){
+        let user = await userModel.findOne({ email: data.email });
+
+        if (user) {
             const match = await bcrypt.compare(data.password, user.password);
-            if(match){
+            if (match) {
                 loggedUser = user;
                 let uid = user['_id'];
-                let token = jwt.sign({payload: uid}, jwt_key);
-                res.cookie("loggedin", token, {sameSite: "None", secure: true, httpOnly: false, withCredentials: true }).status(200).json({
+                let token = jwt.sign({ payload: uid }, jwt_key);
+                res.cookie("loggedin", token, { sameSite: "None", secure: true, httpOnly: false, withCredentials: true }).status(200).json({
                     message: "Logged in successfully",
                 });
             }
-            else{
+            else {
                 res.status(401).json({
                     message: "wrong credentials"
                 })
                 return false;
             }
         }
-        else{
+        else {
             res.status(404).json({
                 message: "user not found"
             });
         }
     }
-    catch(err){
+    catch (err) {
         res.status(500).json({
             message: err.message,
         })
     }
 };
 
-module.exports.currentUser = async function currentUser(req, res){
+module.exports.currentUser = async function currentUser(req, res) {
     try {
-        let token = req.cookies.loggedin;
-        let payload = jwt.verify(token, jwt_key);
-        const uid = payload.payload;
-        const user = await userModel.findById(uid);
-        if (user) {
-            res.json(user);
-        }
-        else {
-            res.status(404).json({ 
-                message: "user not found" 
-            });
-        }
-        return true;
-
+        res.json(req.user);
     } catch (err) {
         res.status(500).json({
             message: err.message
         });
-        return false;
     }
 };
 
-module.exports.signupUser = async function signupUser(req, res){
-    try{
+module.exports.signupUser = async function signupUser(req, res) {
+    try {
         const data = req.body;
-        
+
         {
             let user = await userModel.create(data);
             res.status(200).json({
                 message: 'user signed up'
             });
         }
-        
+
     }
-    catch(err){
+    catch (err) {
         res.status(500).json({
             message: err.message,
         })
     }
 };
 
-module.exports.logoutUser = async function logoutUser(req, res){
-    try{
-        res.cookie('loggedin', '', {maxAge: 1, withCredentials: true});
+module.exports.logoutUser = async function logoutUser(req, res) {
+    try {
+        res.cookie('loggedin', '', { maxAge: 1, withCredentials: true });
         res.status(200).json({
             message: "user logged out successfully",
         });
     }
-    catch(err){
+    catch (err) {
         res.status(404).json({
             message: err.message
         });
     }
 };
 
-module.exports.protectRoute = async function protectRoute(req, res, next){
-    try{   
-        if(req.cookies.loggedin){
-            let isverified = jwt.verify(req.cookies.loggedin,jwt_key);
-            if(isverified){
-                next();
-            }
-            else{
-                res.status(401).json({
-                    message: "user not verified"
-                });
-            }
-        }
-        else{
-            res.status(401).json({
-                message: 'User Not Logged In'
-            });
-        }
-    }
-    catch(err){
-        res.status(404).json({
-            message: err.message
-        })
-    }
-};
 
-module.exports.userProfilePic = async function userProfilePic(req, res){
-    try{
-        const token = req.cookies.loggedin;
-        if(!token){
-            return res.status(401).json({
-                message: "Please Login",
-            });
-        }
-        const payload = jwt.verify(token, jwt_key);
-        const uid = payload.payload;
-        
-        
-        upload.single("image")(req, res, async function(err){
-            if(err){
+
+module.exports.userProfilePic = async function userProfilePic(req, res) {
+    try {
+        const uid = req.user._id;
+
+        upload.single("image")(req, res, async function (err) {
+            if (err) {
                 return res.status(400).json({
                     message: err.message
                 });
             }
 
-            const data = req.body;
-            let user = await userModel.findOneAndUpdate({_id: uid}, {profilePic: req.file.filename}, {new: true});
+            let user = await userModel.findOneAndUpdate({ _id: uid }, { profilePic: req.file.filename }, { new: true });
             res.status(200).json({
                 message: "File Uploaded Successfully",
             })
         });
     }
-    catch(err){
+    catch (err) {
         res.status(404).json({
             message: err.message
         })

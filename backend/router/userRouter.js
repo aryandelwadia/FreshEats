@@ -1,29 +1,27 @@
 const express = require('express');
-const app = express();
-
-const { loginUser, signupUser, logoutUser, currentUser, protectRoute, userProfilePic } = require('../controller/userController');
+const { loginUser, signupUser, logoutUser, currentUser, userProfilePic } = require('../controller/userController');
+const { isUserLoggedIn } = require('../middlewares/auth.middleware');
 
 const userRouter = express.Router();
 
 userRouter
-.route('/login')
-.post(loginUser);
+    .route('/login')
+    .post(loginUser);
 
 userRouter
-.route('/signup')
-.post(signupUser);
+    .route('/signup')
+    .post(signupUser);
 
 userRouter
-.route('/logout')
-.post(protectRoute)
-.post(logoutUser);
+    .route('/logout')
+    .post(isUserLoggedIn, logoutUser);
 
 userRouter
-.route('/currentUser')
-.get(currentUser);
+    .route('/currentUser')
+    .get(isUserLoggedIn, currentUser);
 
 userRouter
-.route('/profilePic')
-.post(userProfilePic);
+    .route('/profilePic')
+    .post(isUserLoggedIn, userProfilePic);
 
 module.exports = userRouter;

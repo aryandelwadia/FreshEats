@@ -78,21 +78,10 @@ module.exports.sellerLogout = async function sellerLogout(req, res) {
 };
 
 module.exports.currentSeller = async function currentSeller(req, res) {
-    try{
-        let token = req.cookies.sellerLoggedin;
-        let payload = jwt.verify(token, seller_jwt_key);
-        const uid = payload.payload;
-        const user = await sellerModel.findById(uid);
-        if(user){
-            res.json(user);
-        }
-        else{
-            res.status(404).json({ 
-                message: "user not found" 
-            });
-        }
+    try {
+        res.json(req.user);
     }
-    catch(err){
+    catch (err) {
         res.status(500).json({
             message: err.message,
         })

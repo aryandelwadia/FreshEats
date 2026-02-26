@@ -1,50 +1,37 @@
-const express = require('express');
-const app = express();
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 var validator = require('email-validator');
-require("dotenv").config();
-
-const db_link = process.env.DB;
-
-mongoose.connect(db_link)
-.then(function(db){
-    console.log("userdb connected");
-})
-.catch(function(err){
-    console.log(err);
-});
 
 const userSchema = mongoose.Schema({
-    fname:{
+    fname: {
         type: String,
         required: true
     },
-    lname:{
+    lname: {
         type: String,
         required: true
     },
-    username:{
+    username: {
         type: String,
         required: true,
         unique: true
     },
-    number:{
+    number: {
         type: Number,
         required: true,
         unique: true,
         min: 1000000000,
         max: 9999999999
     },
-    email:{
+    email: {
         type: String,
         required: true,
         unique: true,
-        validate: function(){
+        validate: function () {
             return validator.validate(this.email);
         }
     },
-    password:{
+    password: {
         type: String,
         required: true,
     },
@@ -73,11 +60,11 @@ const userSchema = mongoose.Schema({
     }
 });
 
-userSchema.pre('save',async function(){
+userSchema.pre('save', async function () {
     let salt = await bcrypt.genSalt();
-    let hashed =await bcrypt.hash(this.password, salt);
+    let hashed = await bcrypt.hash(this.password, salt);
     this.password = hashed;
-    this.usertype="Customer";
+    this.usertype = "Customer";
 });
 
 const userModel = mongoose.model('userModel', userSchema);

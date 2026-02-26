@@ -1,27 +1,14 @@
-const express = require('express');
 const mongoose = require('mongoose');
 const validator = require("email-validator");
 const bcrypt = require("bcrypt");
 
-const app = express();
-
-const db_link = process.env.DB;
-
-mongoose.connect(db_link)
-.then(function(db){
-    console.log('sellerdb connected');
-})
-.catch(function(err){
-    console.log(err);
-});
-
 const sellerSchema = mongoose.Schema({
     fname: {
-        type: String, 
+        type: String,
         required: true,
     },
     lname: {
-        type: String, 
+        type: String,
         required: true,
     },
     username: {
@@ -29,11 +16,11 @@ const sellerSchema = mongoose.Schema({
         required: true,
         unique: true
     },
-    email:{
+    email: {
         type: String,
         required: true,
         unique: true,
-        validator: function(){
+        validator: function () {
             return validator.validate(this.email);
         }
     },
@@ -68,9 +55,9 @@ const sellerSchema = mongoose.Schema({
     }
 });
 
-sellerSchema.pre('save',async function(){
+sellerSchema.pre('save', async function () {
     const salt = await bcrypt.genSalt();
-    const hased  = await bcrypt.hash(this.password,salt);
+    const hased = await bcrypt.hash(this.password, salt);
     this.password = hased;
     this.usertype = "Seller";
 })
