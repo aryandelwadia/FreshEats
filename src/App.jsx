@@ -15,6 +15,8 @@ import ConditionsOfUse from './pages/Legal/ConditionsOfUse';
 import PrivacyTerms from './pages/Legal/PrivacyTerms';
 import InterestBasedSales from './pages/Legal/InterestBasedSales';
 import MyOrders from './pages/Orders/MyOrders';
+import AdminLogin from './pages/Admin/AdminLogin';
+import AdminDashboard from './pages/Admin/AdminDashboard';
 
 function App() {
 
@@ -50,6 +52,8 @@ function App() {
             <Route path='/privacy' element={<PrivacyTerms userLoginState={userLoginState} setUserLoginState={setUserLoginState} />} />
             <Route path='/interest-based-sales' element={<InterestBasedSales userLoginState={userLoginState} setUserLoginState={setUserLoginState} />} />
             <Route path='/orders' element={<MyOrders userLoginState={userLoginState} setUserLoginState={setUserLoginState} />} />
+            <Route path='/admin' element={<AdminLogin />} />
+            <Route path='/admin/dashboard' element={<AdminDashboard />} />
           </Routes>
         </CookiesProvider>
       </AnimatePresence>
