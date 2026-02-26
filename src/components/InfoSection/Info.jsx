@@ -20,30 +20,30 @@ export default function Info() {
     const x = useTransform(scrollYProgress, [0, 1], ["10%", "-95%"]);
 
     return <>
-        <motion.div className="flex justify-between" initial={{ opacity: 0, translateX: -100, scale: 0.9 }} whileInView={{ opacity: 1, translateX: 0, scale: 1 }} transition={{ duration: 0.5 }} >
-            <div className="ml-40 my-40 cantora-one-regular">
-                <div className=' font-bold text-5xl w-1/2 ' >
+        <motion.div className="flex flex-col md:flex-row justify-between items-center" initial={{ opacity: 0, translateX: -100, scale: 0.9 }} whileInView={{ opacity: 1, translateX: 0, scale: 1 }} transition={{ duration: 0.5 }} >
+            <div className="mx-6 my-10 md:ml-40 md:my-40 cantora-one-regular">
+                <div className='font-bold text-3xl md:text-5xl w-full md:w-1/2' >
                     We Believe In Purity,<br></br><br></br>
                     We Believe in Nature
                 </div>
                 <br />
-                <div className=' w-1/2 text-xl average-sans-regular  ' >
+                <div className='w-full md:w-1/2 text-base md:text-xl average-sans-regular' >
                     Apples. Oranges. Limes. Lemons. Guavas. Carrots. Cucumbers. Jicamas. Cauliflowers. Brussels sprouts. Shallots. Japanese eggplants. Asparagus. Artichokes—Jerusalem artichokes, too. Radishes. Broccoli. Baby broccoli. Broccolini. Bok choy. Scallions. Ginger. Cherries. Raspberries. Cilantro. Parsley. Dill.
                 </div>
             </div>
-            <img src={UnionImg} alt="" className='w-1/3 h-3/5 ' />
+            <img src={UnionImg} alt="" className='w-4/5 md:w-1/3 h-auto px-4 md:px-0' />
         </motion.div>
         <br></br>
         <br></br>
-        <motion.div initial={{ opacity: 0, translateX: -100, scale: 0.9 }} whileInView={{ opacity: 1, translateX: 0, scale: 1 }} transition={{ duration: 0.5 }} className=" flex justify-between" >
-            <img src={StrawberryImg} alt="" className='w-1/3 h-1/3 ' />
-            <div className="my-40 cantora-one-regular text-right" >
-                <div className=' font-bold text-5xl mr-40 '>
+        <motion.div initial={{ opacity: 0, translateX: -100, scale: 0.9 }} whileInView={{ opacity: 1, translateX: 0, scale: 1 }} transition={{ duration: 0.5 }} className="flex flex-col-reverse md:flex-row justify-between items-center" >
+            <img src={StrawberryImg} alt="" className='w-4/5 md:w-1/3 h-auto px-4 md:px-0' />
+            <div className="mx-6 my-10 md:my-40 cantora-one-regular text-center md:text-right" >
+                <div className='font-bold text-3xl md:text-5xl md:mr-40'>
                     An Apple A Day,<br></br><br></br>
                     Keeps Doctor Away
                 </div>
                 <br />
-                <div className='  text-xl average-sans-regular text-right mr-40 ml-96 ' >
+                <div className='text-base md:text-xl average-sans-regular text-center md:text-right md:mr-40 md:ml-96' >
                     Discover the vibrant world of fresh fruits and vegetables, rich in essential vitamins, minerals, and antioxidants. Embrace their disease-fighting properties, fiber-rich goodness, and hydrating benefits for optimal health and vitality. With endless flavors and environmental benefits, make fresh produce a delicious cornerstone of your daily diet.
                 </div>
             </div>
@@ -53,13 +53,13 @@ export default function Info() {
         <br />
         <br />
 
-        <motion.div initial={{ opacity: 0, translateX: -100, scale: 0.9 }} whileInView={{ opacity: 1, translateX: 0, scale: 1 }} transition={{ duration: 0.5 }} className='flex justify-evenly  homecards mb-10'>
+        <motion.div initial={{ opacity: 0, translateX: -100, scale: 0.9 }} whileInView={{ opacity: 1, translateX: 0, scale: 1 }} transition={{ duration: 0.5 }} className='flex flex-col md:flex-row justify-evenly items-center homecards mb-10 px-4 md:px-0 gap-6 md:gap-0'>
             <HomeCard img={WomenImg} heading="Trusted By 4Lac People" content="Welcome to our trusted marketplace for fresh, quality produce! Explore our selection of vibrant fruits and vegetables, handpicked for families seeking wholesome goodness." />
             <HomeCard img={BulkImg} heading="Bulk Orders Accepted" content="Bulk orders welcomed! Stock up on fresh produce with ease. Contact us today to inquire about special pricing and arrangements." />
         </motion.div>
 
-        <motion.div style={{ x }} initial={{ opacity: 0, translateX: -100, scale: 0.9 }} whileInView={{ opacity: 1, translateX: 0, scale: 1 }} transition={{ duration: 0.5 }} className=' relative h-[300vh] bg-black ' ref={targetref}>
-            <div className=' h-screen sticky top-0 flex items-center overflow-hidden'>
+        <motion.div style={{ x }} initial={{ opacity: 0, translateX: -100, scale: 0.9 }} whileInView={{ opacity: 1, translateX: 0, scale: 1 }} transition={{ duration: 0.5 }} className='relative h-[300vh] bg-black hidden md:block' ref={targetref}>
+            <div className='h-screen sticky top-0 flex items-center overflow-hidden'>
                 <div className='flex' >
 
                     <motion.img whileHover={{ scale: 0.9 }} src={Img1} alt="" className='w-[300px] h-[500px] relative top-5 right-5 rounded-lg' />

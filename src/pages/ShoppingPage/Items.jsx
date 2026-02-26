@@ -1,9 +1,11 @@
-export default function Items(props){
+export default function Items(props) {
 
-    return<>
-        <div className="bghc rounded-xl m-10">
-            <div className="w-96 ">
-                <img src={props.img} alt="" className="rounded-t-xl h-64 w-96 bg-cover"/>
+    const imgSrc = props.img && props.img.startsWith('http') ? props.img : `http://localhost:3000/uploads/${props.img}`;
+
+    return <>
+        <div className="bghc rounded-xl m-4 md:m-10">
+            <div className="w-full">
+                <img src={imgSrc} alt="" className="rounded-t-xl h-48 md:h-64 w-full object-cover" />
             </div>
             <div className="p-5">
                 <p className="fredoka text-xl">{props.name}</p>

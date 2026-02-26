@@ -104,8 +104,8 @@ export default function Profile({ setUserLoginState }) {
                     </Link>
                 </motion.button>
             </div>
-            <div className="bghc p-5 m-10 rounded-lg flex items-center flex-col">
-                <div className="w-4/5">
+            <div className="bghc p-3 md:p-5 m-4 md:m-10 rounded-lg flex items-center flex-col">
+                <div className="w-full md:w-4/5">
                     <Link to={'/'}>
                         <button className="">
                             <svg width="64px" height="64px" viewBox="-4.8 -4.8 57.60 57.60" fill="none" xmlns="http://www.w3.org/2000/svg" transform="matrix(-1, 0, 0, 1, 0, 0)" stroke="#1a1a1a"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect width="48" height="48" fill="white" fillOpacity="0.01"></rect> <path d="M41.9999 24H5.99992" stroke="#ffffff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M30 12L42 24L30 36" stroke="#ffffff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg>
@@ -118,7 +118,7 @@ export default function Profile({ setUserLoginState }) {
                         </div>
                     </form>
                     <div className="flex justify-center p-3 w-full">
-                        <img src={preview} alt="" className="rounded-full bg-contain h-60 w-60" />
+                        <img src={preview} alt="" className="rounded-full bg-contain h-32 w-32 md:h-60 md:w-60" />
                     </div>
 
 

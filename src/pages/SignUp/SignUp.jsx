@@ -61,20 +61,20 @@ export default function SignUp() {
                 </Link>
             </button>
         </div>
-        <div className='bghc flex align-middle justify-center mx-96 p-10 rounded-xl'>
+        <div className='bghc flex align-middle justify-center mx-4 md:mx-32 lg:mx-96 p-6 md:p-10 rounded-xl'>
             <div>
                 <div className='cantora-one-regular font-bold'>First Name</div>
-                <input className='rounded-lg back cantora-one-regular font-bold p-1 w-96 mb-10' id='fname'></input>
+                <input className='rounded-lg back cantora-one-regular font-bold p-1 w-full md:w-96 mb-10' id='fname'></input>
                 <div className='cantora-one-regular font-bold'>Last Name</div>
-                <input className='rounded-lg back cantora-one-regular font-bold p-1 w-96 mb-10' id='lname'></input>
+                <input className='rounded-lg back cantora-one-regular font-bold p-1 w-full md:w-96 mb-10' id='lname'></input>
                 <div className='cantora-one-regular font-bold'>Username</div>
-                <input className='rounded-lg back cantora-one-regular font-bold p-1 w-96 mb-10' id='username'></input>
+                <input className='rounded-lg back cantora-one-regular font-bold p-1 w-full md:w-96 mb-10' id='username'></input>
                 <div className='cantora-one-regular font-bold'>Phone Number</div>
-                <input className='rounded-lg back cantora-one-regular font-bold p-1 w-96 mb-10' id='number'></input>
+                <input className='rounded-lg back cantora-one-regular font-bold p-1 w-full md:w-96 mb-10' id='number'></input>
                 <div className='cantora-one-regular font-bold'>E-mail</div>
-                <input className='rounded-lg back cantora-one-regular font-bold p-1 w-96 mb-10' id='email'></input>
+                <input className='rounded-lg back cantora-one-regular font-bold p-1 w-full md:w-96 mb-10' id='email'></input>
                 <div className='cantora-one-regular font-bold'>Password</div>
-                <input className='rounded-lg back cantora-one-regular font-bold p-1 w-96 mb-10' type='password' id='password'></input>
+                <input className='rounded-lg back cantora-one-regular font-bold p-1 w-full md:w-96 mb-10' type='password' id='password'></input>
                 <br />
                 <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className="text-2xl bg p-2 px-4 fredoka mr-5" onClick={handleSignUp}>Sign Up</motion.button>
                 <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className="text-2xl p-2 px-4 fredoka fp" >

@@ -2,7 +2,7 @@ import Logo from '../../assets/Logo.png';
 
 export default function CartItems(props) {
     return <>
-        <div className="bghc rounded-xl m-10 flex w-1/3">
+        <div className="bghc rounded-xl m-4 md:m-10 flex w-full md:w-1/2 lg:w-1/3">
             <div className="w-60 ">
                 <img src={Logo} alt="" className="rounded-l-xl" />
             </div>

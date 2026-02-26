@@ -45,7 +45,7 @@ export default function Cart({ userLoginState, setUserLoginState }) {
 
     return <>
         <Navbar userLoginState={userLoginState} setUserLoginState={setUserLoginState} />
-        <p className="text-center text-7xl cantora-one-regular ">Cart</p>
+        <p className="text-center text-4xl md:text-7xl cantora-one-regular ">Cart</p>
         <hr className="w-4/5 m-auto my-10" />
         <div className="flex justify-center align-middle mb-10 flex-wrap">
             {itemsdata.length > 0 ? (
@@ -57,7 +57,7 @@ export default function Cart({ userLoginState, setUserLoginState }) {
             )}
         </div>
 
-        <div className="w-2/6 p-5 bghc rounded-2xl mx-auto">
+        <div className="w-5/6 md:w-3/6 lg:w-2/6 p-5 bghc rounded-2xl mx-auto mb-10">
             <p className="fredoka text-2xl mb-2">Order Summary</p>
             <p className="fredoka text-xl">Subtotal: ${totalprice}</p>
             <p className="fredoka text-xl">Shipping Charges: $1.99</p>

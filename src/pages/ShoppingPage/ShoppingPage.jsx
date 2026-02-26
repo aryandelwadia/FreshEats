@@ -52,9 +52,9 @@ export default function ShoppingPage({ userLoginState, setUserLoginState }) {
 
     return <>
         <Navbar userLoginState={userLoginState} setUserLoginState={setUserLoginState} />
-        <p className="text-center text-7xl cantora-one-regular ">Shop Now </p>
+        <p className="text-center text-4xl md:text-7xl cantora-one-regular ">Shop Now </p>
         <hr className="w-4/5 m-auto my-10" />
-        <div className="flex justify-center align-middle mb-10 flex-wrap">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10 px-4 md:px-10">
             {itemsdata.length > 0 ? (
                 itemsdata.map(item => (
                     <Items key={item._id} name={item.itemname} price={item.itemprice} place={item.prodplace} img={item.img} userLoginState={userLoginState} handleAddToCart={() => handleAddToCart(item)} />

@@ -77,7 +77,7 @@ export default function SellerSignUp() {
     }
 
     return <>
-        <div className=' text-center block mt-10 text-3xl ccantora-one-regular font-bold text-[#06c167]'>Become Seller On Best Grocery Market In The World</div>
+        <div className=' text-center block mt-10 text-xl md:text-3xl ccantora-one-regular font-bold text-[#06c167] px-4'>Become Seller On Best Grocery Market In The World</div>
         <div className=" bg-black flex justify-center">
             <button>
                 <Link to={'/'}>
@@ -86,27 +86,27 @@ export default function SellerSignUp() {
             </button>
         </div>
         <motion.div animate={{ width: sellerInfo.percent * 10, backgroundColor: "#06c167", transformOrigin: "left" }} className='h-5 mb-3 mx-auto rounded-3xl bg-[#1a1a1a]'></motion.div><p className='text-center mb-3 text-xl'>{Math.ceil(sellerInfo.percent)}%</p>
-        <div className='bghc flex align-middle justify-center mx-96 p-10 rounded-xl mb-10'>
+        <div className='bghc flex align-middle justify-center mx-4 md:mx-32 lg:mx-96 p-6 md:p-10 rounded-xl mb-10'>
 
             <div>
                 <div className='cantora-one-regular font-bold'>First Name</div>
-                <input className='rounded-lg back cantora-one-regular font-bold p-1 w-96 mb-10' id='fname' onChange={progressBar1}></input>
+                <input className='rounded-lg back cantora-one-regular font-bold p-1 w-full md:w-96 mb-10' id='fname' onChange={progressBar1}></input>
                 <div className='cantora-one-regular font-bold'>Last Name</div>
-                <input className='rounded-lg back cantora-one-regular font-bold p-1 w-96 mb-10' id='lname' onChange={progressBar1}></input>
+                <input className='rounded-lg back cantora-one-regular font-bold p-1 w-full md:w-96 mb-10' id='lname' onChange={progressBar1}></input>
                 <div className='cantora-one-regular font-bold'>Username</div>
-                <input className='rounded-lg back cantora-one-regular font-bold p-1 w-96 mb-10' id='username' onChange={progressBar1}></input>
+                <input className='rounded-lg back cantora-one-regular font-bold p-1 w-full md:w-96 mb-10' id='username' onChange={progressBar1}></input>
                 <div className='cantora-one-regular font-bold'>Phone Number</div>
-                <input className='rounded-lg back cantora-one-regular font-bold p-1 w-96 mb-10' id='number' onChange={progressBar1}></input>
+                <input className='rounded-lg back cantora-one-regular font-bold p-1 w-full md:w-96 mb-10' id='number' onChange={progressBar1}></input>
                 <div className='cantora-one-regular font-bold'>E-mail</div>
-                <input className='rounded-lg back cantora-one-regular font-bold p-1 w-96 mb-10' id='email' onChange={progressBar1}></input>
+                <input className='rounded-lg back cantora-one-regular font-bold p-1 w-full md:w-96 mb-10' id='email' onChange={progressBar1}></input>
                 <div className='cantora-one-regular font-bold'>Password</div>
-                <input className='rounded-lg back cantora-one-regular font-bold p-1 w-96 mb-10' type='password' id='password' onChange={progressBar1}></input>
+                <input className='rounded-lg back cantora-one-regular font-bold p-1 w-full md:w-96 mb-10' type='password' id='password' onChange={progressBar1}></input>
                 <div className='cantora-one-regular font-bold'>Store Name</div>
-                <input className='rounded-lg back cantora-one-regular font-bold p-1 w-96 mb-10' id='storename' onChange={progressBar1}></input>
+                <input className='rounded-lg back cantora-one-regular font-bold p-1 w-full md:w-96 mb-10' id='storename' onChange={progressBar1}></input>
                 <div className='cantora-one-regular font-bold'>Store Address</div>
-                <input className='rounded-lg back cantora-one-regular font-bold p-1 w-96 mb-10' id='address' onChange={progressBar1}></input>
+                <input className='rounded-lg back cantora-one-regular font-bold p-1 w-full md:w-96 mb-10' id='address' onChange={progressBar1}></input>
                 <div className='cantora-one-regular font-bold'>Store Number</div>
-                <input className='rounded-lg back cantora-one-regular font-bold p-1 w-96 mb-10' id='storenumber' onChange={progressBar1}></input>
+                <input className='rounded-lg back cantora-one-regular font-bold p-1 w-full md:w-96 mb-10' id='storenumber' onChange={progressBar1}></input>
                 <br />
                 <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className="text-2xl bg p-2 px-4 fredoka mr-5" onClick={handleSignUp}>SignUp</motion.button>
                 <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className="text-2xl p-2 px-4 fredoka fp" >

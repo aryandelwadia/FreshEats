@@ -70,26 +70,27 @@ export default function Navbar({ userLoginState, setUserLoginState }) {
                         {!userLoginState && <li className='my-4 text-xl hover:underline fredoka'>{!userLoginState && <button><Link to={'/login'}>Login</Link></button>}</li>}
                         <li className='my-4 text-xl hover:underline fredoka'>{userLoginState && <button onClick={handleLogout}>Logout</button>}</li>
                         {!userLoginState && <li className='my-4 text-xl hover:underline fredoka'><button><Link to={'/signup'}>Sign Up</Link></button></li>}
+                        <li className='my-4 text-xl hover:underline fredoka md:hidden'><button><Link to={'/shopnow'}>Shop Now</Link></button></li>
                     </motion.ul>
                 </div>
             </motion.div>}
         </AnimatePresence>
-        <motion.div style={{ scaleX: scrollYProgress, transformOrigin: "left", position: 'fixed', width: "100%", height: 10, backgroundColor: "#06c167" }} className=' z-50'>
+        <motion.div style={{ scaleX: scrollYProgress, transformOrigin: "left", position: 'fixed', width: "100%", height: 10, backgroundColor: "#06c167" }} className='z-50'>
         </motion.div>
-        <div className="flex justify-between mb-5">
-            <div className="mt-10">
+        <div className="flex justify-between mb-5 items-center">
+            <div className="mt-6 md:mt-10">
                 <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9, rotate: '2deg' }}>
                     <Link to={'/'}>
-                        <img src={Logo} className="ml-10 h-24" />
+                        <img src={Logo} className="ml-4 md:ml-10 h-16 md:h-24" />
                     </Link>
                 </motion.button>
             </div>
-            <div className="mt-12">
-                <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className="mx-5 text-3xl hover:underline fredoka"><Link to={'/shopnow'}>Shop Now</Link></motion.button>
-                <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className="mx-5 text-3xl hover:underline fredoka">Trending Recipies</motion.button>
-                {!userLoginState && <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9, rotate: '2deg' }} className="mx-5 text-3xl bg p-4 px-6 fredoka" ><Link to={'/login'}>Login</Link></motion.button>}
-                {userLoginState && <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9, rotate: '2deg' }} className="mx-5 text-3xl bg p-4 px-6 fredoka" onClick={handleLogout} >Logout</motion.button>}
-                <button className='mr-10'><img src={MoreButton} alt="" onClick={handleSidebar} /></button>
+            <div className="mt-8 md:mt-12 flex items-center">
+                <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className="mx-5 text-3xl hover:underline fredoka hidden md:inline-block"><Link to={'/shopnow'}>Shop Now</Link></motion.button>
+                <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className="mx-5 text-3xl hover:underline fredoka hidden lg:inline-block">Trending Recipies</motion.button>
+                {!userLoginState && <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9, rotate: '2deg' }} className="mx-5 text-xl md:text-3xl bg p-2 px-4 md:p-4 md:px-6 fredoka hidden md:inline-block" ><Link to={'/login'}>Login</Link></motion.button>}
+                {userLoginState && <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9, rotate: '2deg' }} className="mx-5 text-xl md:text-3xl bg p-2 px-4 md:p-4 md:px-6 fredoka hidden md:inline-block" onClick={handleLogout} >Logout</motion.button>}
+                <button className='mr-4 md:mr-10'><img src={MoreButton} alt="" onClick={handleSidebar} /></button>
             </div>
         </div>
     </>
