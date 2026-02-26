@@ -132,3 +132,61 @@ module.exports.userProfilePic = async function userProfilePic(req, res) {
         })
     }
 }
+
+module.exports.addAddress = async function addAddress(req, res) {
+    try {
+        const userId = req.user._id;
+        const { label, street, city, state, pincode, phone } = req.body;
+        logger.info(`Adding address for user: ${req.user.email}`);
+
+        if (!street || !city || !state || !pincode || !phone) {
+            return res.status(400).json({ message: "All address fields are required" });
+        }
+
+        let user = await userModel.findByIdAndUpdate(
+            userId,
+            { $push: { addresses: { label: label || "Home", street, city, state, pincode, phone } } },
+            { new: true }
+        );
+
+        logger.info(`Address added for user: ${req.user.email}`);
+        res.status(200).json({ addresses: user.addresses });
+    }
+    catch (err) {
+        logger.error(`Add address error for user ${req.user.email}: ${err.message}`);
+        res.status(500).json({ message: err.message });
+    }
+}
+
+module.exports.getAddresses = async function getAddresses(req, res) {
+    try {
+        logger.info(`Fetching addresses for user: ${req.user.email}`);
+        let user = await userModel.findById(req.user._id).select('addresses');
+        res.status(200).json({ addresses: user.addresses || [] });
+    }
+    catch (err) {
+        logger.error(`Get addresses error for user ${req.user.email}: ${err.message}`);
+        res.status(500).json({ message: err.message });
+    }
+}
+
+module.exports.deleteAddress = async function deleteAddress(req, res) {
+    try {
+        const userId = req.user._id;
+        const { addressId } = req.body;
+        logger.info(`Deleting address ${addressId} for user: ${req.user.email}`);
+
+        let user = await userModel.findByIdAndUpdate(
+            userId,
+            { $pull: { addresses: { _id: addressId } } },
+            { new: true }
+        );
+
+        logger.info(`Address deleted for user: ${req.user.email}`);
+        res.status(200).json({ addresses: user.addresses });
+    }
+    catch (err) {
+        logger.error(`Delete address error for user ${req.user.email}: ${err.message}`);
+        res.status(500).json({ message: err.message });
+    }
+}

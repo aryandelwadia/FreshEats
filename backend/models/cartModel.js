@@ -22,6 +22,12 @@ const cartSchema = mongoose.Schema({
         type: String,
         required: true,
         default: "default.png"
+    },
+    quantity: {
+        type: Number,
+        required: true,
+        default: 1,
+        min: 1
     }
 });
 

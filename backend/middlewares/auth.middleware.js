@@ -70,3 +70,35 @@ module.exports.isSellerLoggedIn = async function isSellerLoggedIn(req, res, next
         });
     }
 };
+
+const admin_jwt_key = process.env.ADMIN_JWT_KEY || 'admin_secret_key_fresheats';
+
+module.exports.isAdminLoggedIn = async function isAdminLoggedIn(req, res, next) {
+    try {
+        const token = req.cookies.adminLoggedin;
+        if (!token) {
+            logger.warn(`Admin auth failed - no token provided | ${req.method} ${req.originalUrl} | IP: ${req.ip}`);
+            return res.status(401).json({
+                message: "Admin Not Logged In"
+            });
+        }
+
+        const decoded = jwt.verify(token, admin_jwt_key);
+        if (decoded.role !== 'admin') {
+            logger.warn(`Admin auth failed - invalid role | ${req.method} ${req.originalUrl}`);
+            return res.status(403).json({
+                message: "Access denied"
+            });
+        }
+
+        logger.info(`Admin authenticated | ${req.method} ${req.originalUrl}`);
+        req.admin = decoded;
+        next();
+    }
+    catch (err) {
+        logger.error(`Admin auth error: ${err.message} | ${req.method} ${req.originalUrl}`);
+        return res.status(401).json({
+            message: "Unauthorized: " + err.message
+        });
+    }
+};

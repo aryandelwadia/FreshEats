@@ -11,6 +11,7 @@ const userRouter = require('./router/userRouter');
 const sellerRouter = require('./router/sellerRouter');
 const itemRouter = require('./router/itemRouter');
 const cartRouter = require("./router/cartRouter");
+const adminRouter = require("./router/adminRouter");
 
 const app = express();
 
@@ -40,6 +41,7 @@ app.use('/user', userRouter);
 app.use('/seller', sellerRouter);
 app.use('/item', itemRouter);
 app.use('/cart', cartRouter);
+app.use('/admin', adminRouter);
 
 app.listen(3000, () => {
   logger.info('Server is running on port 3000');

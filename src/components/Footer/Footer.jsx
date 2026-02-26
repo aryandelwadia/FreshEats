@@ -1,4 +1,5 @@
 import './footer.css'
+import { Link } from 'react-router-dom'
 
 export default function Footer() {
     return <>
@@ -12,9 +13,9 @@ export default function Footer() {
                 </div>
             </div>
             <div className='flex flex-col sm:flex-row justify-evenly pb-5 gap-2 px-4'>
-                <button className='hover:underline cantora-one-regular'>Condition of Use & Sales</button>
-                <button className='hover:underline cantora-one-regular'>Privacy Terms</button>
-                <button className='hover:underline cantora-one-regular'>Interest Based Sales</button>
+                <Link to='/conditions' className='hover:underline cantora-one-regular text-center'>Condition of Use & Sales</Link>
+                <Link to='/privacy' className='hover:underline cantora-one-regular text-center'>Privacy Terms</Link>
+                <Link to='/interest-based-sales' className='hover:underline cantora-one-regular text-center'>Interest Based Sales</Link>
             </div>
             <div className='flex justify-center pb-5 cantora-one-regular text-sm sm:text-base'>
                 ©2024, MoveN'Eats.com or its affiliates

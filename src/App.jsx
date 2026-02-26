@@ -11,6 +11,10 @@ import SellerSignUp from './pages/SignUp/SellerSignUp';
 import Profile from './pages/Profile/Profile';
 import ShoppingPage from './pages/ShoppingPage/ShoppingPage'
 import Cart from './pages/Cart/Cart';
+import ConditionsOfUse from './pages/Legal/ConditionsOfUse';
+import PrivacyTerms from './pages/Legal/PrivacyTerms';
+import InterestBasedSales from './pages/Legal/InterestBasedSales';
+import MyOrders from './pages/Orders/MyOrders';
 
 function App() {
 
@@ -42,6 +46,10 @@ function App() {
             <Route path={`/user/profile`} element={<Profile setUserLoginState={setUserLoginState} />} />
             <Route path='/shopnow' element={<ShoppingPage userLoginState={userLoginState} setUserLoginState={setUserLoginState} />} />
             <Route path='/cart' element={<Cart userLoginState={userLoginState} setUserLoginState={setUserLoginState} />} />
+            <Route path='/conditions' element={<ConditionsOfUse userLoginState={userLoginState} setUserLoginState={setUserLoginState} />} />
+            <Route path='/privacy' element={<PrivacyTerms userLoginState={userLoginState} setUserLoginState={setUserLoginState} />} />
+            <Route path='/interest-based-sales' element={<InterestBasedSales userLoginState={userLoginState} setUserLoginState={setUserLoginState} />} />
+            <Route path='/orders' element={<MyOrders userLoginState={userLoginState} setUserLoginState={setUserLoginState} />} />
           </Routes>
         </CookiesProvider>
       </AnimatePresence>
