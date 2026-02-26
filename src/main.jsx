@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 import { BrowserRouter } from 'react-router-dom'
-import {Toaster} from 'react-hot-toast'
+import { Toaster } from 'react-hot-toast'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -15,10 +15,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           padding: '10px',
           color: 'white',
           backgroundColor: "#1a1a1a",
-          backdropFilter:  blur("20px"),
+          backdropFilter: "blur(20px)",
           borderRadius: "16px"
         },
-  }}/>
+      }} />
     </BrowserRouter>
   </React.StrictMode>,
 )

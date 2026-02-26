@@ -1,29 +1,18 @@
-const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const sellerModel = require("../models/sellerModel");
 const logger = require('../config/logger');
 require('dotenv').config();
 
-const app = express();
-
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    next();
-});
-
 const seller_jwt_key = process.env.SELLER_JWT_KEY;
 
 module.exports.sellerLogin = async function sellerLogin(req, res) {
-    const data = req.body;
-    logger.info(`Seller login attempt for email: ${data.email}`);
-    let seller = await sellerModel.findOne({ email: data.email });
     try {
+        const data = req.body;
+        logger.info(`Seller login attempt for email: ${data.email}`);
+        let seller = await sellerModel.findOne({ email: data.email });
         if (seller) {
-            const isValid = await bcrypt.compareSync(data.password, seller.password);
+            const isValid = await bcrypt.compare(data.password, seller.password);
             if (isValid) {
                 let uid = seller["_id"];
                 let token = jwt.sign({ payload: uid }, seller_jwt_key);

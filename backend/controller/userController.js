@@ -1,27 +1,11 @@
-const express = require('express');
-const app = express();
 const userModel = require('../models/userModel');
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
-const cookieParser = require('cookie-parser');
-const cors = require('cors');
 require('dotenv').config();
-const multer = require('multer');
 const upload = require('../config/multerConfig');
 const logger = require('../config/logger');
 
-app.use(cors());
-app.use(cookieParser());
-
 const jwt_key = process.env.JWT_KEY;
-
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    next();
-});
 
 module.exports.loginUser = async function loginUser(req, res) {
     try {
@@ -32,7 +16,6 @@ module.exports.loginUser = async function loginUser(req, res) {
         if (user) {
             const match = await bcrypt.compare(data.password, user.password);
             if (match) {
-                loggedUser = user;
                 let uid = user['_id'];
                 let token = jwt.sign({ payload: uid }, jwt_key);
                 logger.info(`User logged in successfully: ${data.email}`);
@@ -125,6 +108,13 @@ module.exports.userProfilePic = async function userProfilePic(req, res) {
                 logger.error(`Profile pic upload failed for user ${req.user.email}: ${err.message}`);
                 return res.status(400).json({
                     message: err.message
+                });
+            }
+
+            if (!req.file) {
+                logger.warn(`No file provided for profile pic upload by user: ${req.user.email}`);
+                return res.status(400).json({
+                    message: "No file uploaded"
                 });
             }
 

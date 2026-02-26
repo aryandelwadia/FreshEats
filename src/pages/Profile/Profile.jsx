@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { motion } from 'framer-motion';
 import { Link } from "react-router-dom";
-import LOGO from '../../assets/logo.png';
+import LOGO from '../../assets/Logo.png';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
@@ -11,6 +11,7 @@ export default function Profile({ setUserLoginState }) {
 
     const navigate = useNavigate();
     const [preview, setPreview] = useState('');
+    const [selectedFile, setSelectedFile] = useState(null);
 
     const [userData, setUserData] = useState({
         fname: "",
@@ -53,8 +54,7 @@ export default function Profile({ setUserLoginState }) {
                     setPreview(previewUrl);
                 }
             } catch (err) {
-                toast.error("Unable To Fecth Details");
-                console.log(err.message);
+                toast.error("Unable To Fetch Details");
             }
         };
 
@@ -62,18 +62,38 @@ export default function Profile({ setUserLoginState }) {
     }, []);
 
     async function handleLogout() {
-        const response = await axios.post('http://localhost:3000/user/logout', {}, { withCredentials: true });
         try {
-
+            await axios.post('http://localhost:3000/user/logout', {}, { withCredentials: true });
             setUserLoginState(false);
             navigate('/');
             toast.success("You have logged out successfully");
-
         }
         catch (err) {
-            toast.error("Error Occurred123");
+            toast.error("Error Occurred");
         }
     };
+
+    async function handleProfilePicUpload(e) {
+        e.preventDefault();
+        if (!selectedFile) {
+            toast.error("Please select a file");
+            return;
+        }
+        try {
+            const formData = new FormData();
+            formData.append('image', selectedFile);
+            const response = await axios.post('http://localhost:3000/user/profilePic', formData, {
+                withCredentials: true,
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+            if (response.status === 200) {
+                toast.success("Profile pic updated!");
+                setPreview(URL.createObjectURL(selectedFile));
+            }
+        } catch (err) {
+            toast.error("Failed to upload profile pic");
+        }
+    }
 
     return (
         <div>
@@ -91,15 +111,14 @@ export default function Profile({ setUserLoginState }) {
                             <svg width="64px" height="64px" viewBox="-4.8 -4.8 57.60 57.60" fill="none" xmlns="http://www.w3.org/2000/svg" transform="matrix(-1, 0, 0, 1, 0, 0)" stroke="#1a1a1a"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect width="48" height="48" fill="white" fillOpacity="0.01"></rect> <path d="M41.9999 24H5.99992" stroke="#ffffff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M30 12L42 24L30 36" stroke="#ffffff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg>
                         </button>
                     </Link>
-                    <form action="http://localhost:3000/user/profilePic" encType="multipart/form-data" method="post">
+                    <form onSubmit={handleProfilePicUpload}>
                         <div className="form-group">
-                            <input type="file" className="form-control-file" name="image" />
-                            <button type="submit">Change ProfilePic</button>            
+                            <input type="file" className="form-control-file" name="image" onChange={(e) => setSelectedFile(e.target.files[0])} />
+                            <button type="submit">Change ProfilePic</button>
                         </div>
                     </form>
                     <div className="flex justify-center p-3 w-full">
                         <img src={preview} alt="" className="rounded-full bg-contain h-60 w-60" />
-                        {/* profilePic */}
                     </div>
 
 

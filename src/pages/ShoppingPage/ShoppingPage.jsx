@@ -13,18 +13,22 @@ export default function ShoppingPage({ userLoginState, setUserLoginState }) {
 
     const [itemsdata, setItemsdata] = useState([]);
 
-    async function handleAddToCart(item){
-        if(userLoginState){
-        //    console.log(item);
-            let response = await axios.post('http://localhost:3000/cart/addItem', item, {withCredentials: true});
-            if(response.status === 200){
-                toast.success("Item Added to Cart Successfully");
+    async function handleAddToCart(item) {
+        if (userLoginState) {
+            try {
+                let response = await axios.post('http://localhost:3000/cart/addItem', item, { withCredentials: true });
+                if (response.status === 200) {
+                    toast.success("Item Added to Cart Successfully");
+                }
+                else {
+                    toast.error("Error Occurred");
+                }
             }
-            else{
-                toast.error("Error Occurred");
+            catch (err) {
+                toast.error("Failed to add item to cart");
             }
         }
-        else{
+        else {
             toast.error("Login First");
             navigate("/login");
         }
@@ -38,7 +42,7 @@ export default function ShoppingPage({ userLoginState, setUserLoginState }) {
                 setItemsdata(response.data);
             }
             catch (err) {
-                console.log(err.message);
+                toast.error("Failed to load items");
             }
         }
 
@@ -53,7 +57,7 @@ export default function ShoppingPage({ userLoginState, setUserLoginState }) {
         <div className="flex justify-center align-middle mb-10 flex-wrap">
             {itemsdata.length > 0 ? (
                 itemsdata.map(item => (
-                    <Items key={item._id} name={item.itemname} price={item.itemprice} place={item.prodplace} img={item.img} userLoginState={userLoginState} handleAddToCart={()=>handleAddToCart(item)} />
+                    <Items key={item._id} name={item.itemname} price={item.itemprice} place={item.prodplace} img={item.img} userLoginState={userLoginState} handleAddToCart={() => handleAddToCart(item)} />
                 ))
             ) : (
                 <p>No items available</p>

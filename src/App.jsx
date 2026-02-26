@@ -3,7 +3,7 @@ import HomePage from './pages/HomePage/HomePage'
 import { Routes, Route } from "react-router-dom";
 import Login from './pages/Login/Login';
 import SignUp from './pages/SignUp/SignUp';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useCookies, CookiesProvider } from 'react-cookie';
 import { AnimatePresence } from 'framer-motion';
 import SellerLogin from './pages/Login/SellerLogin';
@@ -13,7 +13,7 @@ import ShoppingPage from './pages/ShoppingPage/ShoppingPage'
 import Cart from './pages/Cart/Cart';
 
 function App() {
-  
+
   function getCookie(name) {
     const cookies = document.cookie.split('; ');
     for (let i = 0; i < cookies.length; i++) {
@@ -25,8 +25,8 @@ function App() {
     return null; // Cookie not found
   }
 
-  const [ userLoginState, setUserLoginState] = useState(getCookie('loggedin') ? true : false);
-  const [ sellerLoginState, setSellerLoginState] = useState(getCookie('sellerLoggedin') ? true : false);
+  const [userLoginState, setUserLoginState] = useState(getCookie('loggedin') ? true : false);
+  const [sellerLoginState, setSellerLoginState] = useState(getCookie('sellerLoggedin') ? true : false);
 
 
   return (
@@ -34,9 +34,9 @@ function App() {
       <AnimatePresence>
         <CookiesProvider>
           <Routes>
-            <Route path='/' element={<HomePage userLoginState={userLoginState} setUserLoginState={setUserLoginState} />} /> 
+            <Route path='/' element={<HomePage userLoginState={userLoginState} setUserLoginState={setUserLoginState} />} />
             <Route path='/login' element={<Login userLoginState={userLoginState} setUserLoginState={setUserLoginState} />} />
-            <Route path='/seller/login' element={<SellerLogin userLoginState={sellerLoginState} setUserLoginState={setSellerLoginState} />} />
+            <Route path='/seller/login' element={<SellerLogin sellerLoginState={sellerLoginState} setSellerLoginState={setSellerLoginState} />} />
             <Route path='/signup' element={<SignUp />} />
             <Route path='/seller/signup' element={<SellerSignUp />} />
             <Route path={`/user/profile`} element={<Profile setUserLoginState={setUserLoginState} />} />

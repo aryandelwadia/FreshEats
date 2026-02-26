@@ -3,6 +3,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import CartItems from "./CartItems";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import toast from 'react-hot-toast';
 import axios from "axios";
 
 export default function Cart({ userLoginState, setUserLoginState }) {
@@ -17,11 +18,11 @@ export default function Cart({ userLoginState, setUserLoginState }) {
 
         async function handledata() {
             try {
-                let response = await axios.post('http://localhost:3000/cart/showItem',{},{ withCredentials: true });
+                let response = await axios.post('http://localhost:3000/cart/showItem', {}, { withCredentials: true });
                 setItemsdata(response.data);
             }
             catch (err) {
-                console.log(err.message);
+                toast.error("Failed to load cart");
             }
         }
 
@@ -37,7 +38,7 @@ export default function Cart({ userLoginState, setUserLoginState }) {
     }, [itemsdata]);
 
     useEffect(() => {
-        if(!userLoginState){
+        if (!userLoginState) {
             navigate('/');
         }
     }, [userLoginState]);
@@ -56,14 +57,14 @@ export default function Cart({ userLoginState, setUserLoginState }) {
             )}
         </div>
 
-            <div className="w-2/6 p-5 bghc rounded-2xl mx-auto">
-                <p className="fredoka text-2xl mb-2">Order Summary</p>
-                <p className="fredoka text-xl">Subtotal: ${totalprice}</p>
-                <p className="fredoka text-xl">Shipping Charges: $1.99</p>
-                <hr className="my-5 "/>
-                <p className="fredoka text-xl">Total: ${totalprice + 1.99}</p>
-                <button className="text-xl bg p-2 my-3 w-full fredoka">Procced To Checkout</button>
-            </div>
+        <div className="w-2/6 p-5 bghc rounded-2xl mx-auto">
+            <p className="fredoka text-2xl mb-2">Order Summary</p>
+            <p className="fredoka text-xl">Subtotal: ${totalprice}</p>
+            <p className="fredoka text-xl">Shipping Charges: $1.99</p>
+            <hr className="my-5 " />
+            <p className="fredoka text-xl">Total: ${totalprice + 1.99}</p>
+            <button className="text-xl bg p-2 my-3 w-full fredoka">Procced To Checkout</button>
+        </div>
         <Footer />
     </>
 }

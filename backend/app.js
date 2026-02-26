@@ -1,6 +1,4 @@
 const express = require('express');
-const http = require('http');
-const { Server } = require('socket.io');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
 const path = require("path")
@@ -37,31 +35,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-
-const server = http.createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: "http://localhost:5173",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"]
-  }
-});
-
-io.on("connection", (socket) => {
-  logger.info(`Socket connected: ${socket.id}`);
-  socket.on('disconnect', () => {
-    logger.info(`Socket disconnected: ${socket.id}`);
-  });
-});
-
-server.listen(3000, () => {
-  logger.info('Server is running on port 3000');
-});
-
 app.use(cookieParser());
 app.use('/user', userRouter);
 app.use('/seller', sellerRouter);
 app.use('/item', itemRouter);
 app.use('/cart', cartRouter);
+
+app.listen(3000, () => {
+  logger.info('Server is running on port 3000');
+});
 
 logger.info('All routes and middleware loaded');

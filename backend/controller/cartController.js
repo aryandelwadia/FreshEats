@@ -1,6 +1,4 @@
-const express = require("express");
 const cartModel = require("../models/cartModel");
-const userModel = require("../models/userModel");
 const logger = require('../config/logger');
 
 module.exports.addToCart = async function addToCart(req, res) {

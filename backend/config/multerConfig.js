@@ -3,17 +3,17 @@ const path = require('path')
 const crypto = require('crypto');
 
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'D:/HTML CSS JS/FreshEats/backend/uploads')
-    },
-    filename: function (req, file, cb) {
-      crypto.randomBytes(12, function(err, name){
-        const fn = name.toString("hex") + path.extname(file.originalname);
-        cb(null, fn);
-      });
-    }
-  });
-  
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, '..', 'uploads'))
+  },
+  filename: function (req, file, cb) {
+    crypto.randomBytes(12, function (err, name) {
+      const fn = name.toString("hex") + path.extname(file.originalname);
+      cb(null, fn);
+    });
+  }
+});
+
 const upload = multer({ storage: storage })
 
 module.exports = upload;

@@ -20,7 +20,7 @@ const sellerSchema = mongoose.Schema({
         type: String,
         required: true,
         unique: true,
-        validator: function () {
+        validate: function () {
             return validator.validate(this.email);
         }
     },
@@ -40,11 +40,11 @@ const sellerSchema = mongoose.Schema({
     },
     storename: {
         type: String,
-        require: true
+        required: true
     },
     address: {
         type: String,
-        require: true
+        required: true
     },
     storenumber: {
         type: Number,
