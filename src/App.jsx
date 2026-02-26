@@ -17,6 +17,7 @@ import InterestBasedSales from './pages/Legal/InterestBasedSales';
 import MyOrders from './pages/Orders/MyOrders';
 import AdminLogin from './pages/Admin/AdminLogin';
 import AdminDashboard from './pages/Admin/AdminDashboard';
+import SellerDashboard from './pages/Seller/SellerDashboard';
 
 function App() {
 
@@ -54,6 +55,7 @@ function App() {
             <Route path='/orders' element={<MyOrders userLoginState={userLoginState} setUserLoginState={setUserLoginState} />} />
             <Route path='/admin' element={<AdminLogin />} />
             <Route path='/admin/dashboard' element={<AdminDashboard />} />
+            <Route path='/seller/dashboard' element={<SellerDashboard />} />
           </Routes>
         </CookiesProvider>
       </AnimatePresence>

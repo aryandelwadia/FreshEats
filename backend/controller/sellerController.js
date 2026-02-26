@@ -89,3 +89,45 @@ module.exports.currentSeller = async function currentSeller(req, res) {
         })
     }
 };
+
+module.exports.updateSellerProfile = async function updateSellerProfile(req, res) {
+    try {
+        let data = { ...req.body };
+        if (data.password) {
+            const salt = await bcrypt.genSalt();
+            data.password = await bcrypt.hash(data.password, salt);
+        } else {
+            delete data.password;
+        }
+        let seller = await sellerModel.findByIdAndUpdate(req.user._id, data, { new: true }).select('-password');
+        logger.info(`Seller profile updated: ${req.user.email}`);
+        res.status(200).json({ message: 'Profile updated', seller });
+    }
+    catch (err) {
+        logger.error(`Update seller profile error: ${err.message}`);
+        res.status(500).json({ message: err.message });
+    }
+};
+
+const orderModel = require('../models/orderModel');
+const itemModel = require('../models/itemModel');
+
+module.exports.getSellerOrders = async function getSellerOrders(req, res) {
+    try {
+        const sellerEmail = req.user.email;
+        logger.info(`Fetching orders for seller: ${sellerEmail}`);
+        // Get seller's item names
+        let sellerItems = await itemModel.find({ sellerEmail }).select('itemname');
+        let itemNames = sellerItems.map(i => i.itemname);
+
+        // Find orders containing seller's items
+        let orders = await orderModel.find({ 'items.itemname': { $in: itemNames } }).sort({ createdAt: -1 });
+
+        logger.info(`Fetched ${orders.length} orders for seller: ${sellerEmail}`);
+        res.status(200).json(orders);
+    }
+    catch (err) {
+        logger.error(`Get seller orders error: ${err.message}`);
+        res.status(500).json({ message: err.message });
+    }
+};

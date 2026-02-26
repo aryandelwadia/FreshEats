@@ -30,7 +30,7 @@ export default function SellerLogin({ sellerLoginState, setSellerLoginState }) {
                 if (response.status === 200) {
                     toast.success("Logged In Successfully");
                     setSellerLoginState(true);
-                    navigate('/');
+                    navigate('/seller/dashboard');
                 }
                 else if (response.status === 401) {
                     toast.error("Wrong Credentials");

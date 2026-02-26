@@ -17,6 +17,10 @@ const itemSchema = mongoose.Schema({
     img: {
         type: String,
         required: true,
+    },
+    sellerEmail: {
+        type: String,
+        default: ''
     }
 });
 
