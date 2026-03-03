@@ -23,6 +23,22 @@ module.exports.additem = async function additem(req, res) {
 
 module.exports.getitem = async function getitem(req, res) {
     try {
+        const page = parseInt(req.query.page);
+        const limit = parseInt(req.query.limit) || 20;
+
+        if (page) {
+            logger.info(`Fetching items page ${page} with limit ${limit}`);
+            const skip = (page - 1) * limit;
+            const items = await itemModel.find({}).skip(skip).limit(limit);
+            const total = await itemModel.countDocuments();
+            return res.json({
+                items,
+                totalPages: Math.ceil(total / limit),
+                currentPage: page
+            });
+        }
+
+        // Fallback for non-paginated requests
         logger.info('Fetching all items from shop');
         let data = await itemModel.find({});
         logger.info(`Fetched ${data.length} items from shop`);
