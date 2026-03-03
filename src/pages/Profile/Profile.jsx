@@ -32,7 +32,7 @@ export default function Profile({ setUserLoginState }) {
 
         async function userDetail() {
             try {
-                const response = await axios.get("http://localhost:3000/user/currentUser", { withCredentials: true });
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/user/currentUser`, { withCredentials: true });
                 let user = response.data;
                 if (user) {
                     setUserData({
@@ -50,7 +50,7 @@ export default function Profile({ setUserLoginState }) {
                         profilePic: user.profilePic
                     });
 
-                    const previewUrl = `http://localhost:3000/uploads/${user.profilePic}`;
+                    const previewUrl = `${import.meta.env.VITE_BACKEND_URL}/uploads/${user.profilePic}`;
                     setPreview(previewUrl);
                 }
             } catch (err) {
@@ -63,7 +63,7 @@ export default function Profile({ setUserLoginState }) {
 
     async function handleLogout() {
         try {
-            await axios.post('http://localhost:3000/user/logout', {}, { withCredentials: true });
+            await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/logout`, {}, { withCredentials: true });
             setUserLoginState(false);
             navigate('/');
             toast.success("You have logged out successfully");
@@ -82,7 +82,7 @@ export default function Profile({ setUserLoginState }) {
         try {
             const formData = new FormData();
             formData.append('image', selectedFile);
-            const response = await axios.post('http://localhost:3000/user/profilePic', formData, {
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/profilePic`, formData, {
                 withCredentials: true,
                 headers: { 'Content-Type': 'multipart/form-data' }
             });

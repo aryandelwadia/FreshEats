@@ -18,7 +18,7 @@ export default function Cart({ userLoginState, setUserLoginState }) {
 
     async function fetchCart() {
         try {
-            let response = await axios.post('http://localhost:3000/cart/showItem', {}, { withCredentials: true });
+            let response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/cart/showItem`, {}, { withCredentials: true });
             setItemsdata(response.data);
         }
         catch (err) {
@@ -52,7 +52,7 @@ export default function Cart({ userLoginState, setUserLoginState }) {
         ));
 
         try {
-            await axios.post('http://localhost:3000/cart/updateQuantity', { id, quantity }, { withCredentials: true });
+            await axios.post(`${import.meta.env.VITE_BACKEND_URL}/cart/updateQuantity`, { id, quantity }, { withCredentials: true });
         }
         catch (err) {
             toast.error("Failed to update quantity");
@@ -62,7 +62,7 @@ export default function Cart({ userLoginState, setUserLoginState }) {
 
     async function handleRemove(id) {
         try {
-            await axios.post('http://localhost:3000/cart/removeItem', { id }, { withCredentials: true });
+            await axios.post(`${import.meta.env.VITE_BACKEND_URL}/cart/removeItem`, { id }, { withCredentials: true });
             setItemsdata(prev => prev.filter(item => item._id !== id));
             toast.success("Item removed from cart");
         }
@@ -73,7 +73,7 @@ export default function Cart({ userLoginState, setUserLoginState }) {
 
     async function handlePlaceOrder(deliveryAddress) {
         try {
-            await axios.post('http://localhost:3000/cart/placeOrder', { deliveryAddress }, { withCredentials: true });
+            await axios.post(`${import.meta.env.VITE_BACKEND_URL}/cart/placeOrder`, { deliveryAddress }, { withCredentials: true });
             toast.success("Order placed successfully!");
             setItemsdata([]);
             setTotalPrice(0);

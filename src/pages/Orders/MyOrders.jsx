@@ -24,7 +24,7 @@ export default function MyOrders({ userLoginState, setUserLoginState }) {
 
     async function fetchOrders() {
         try {
-            let res = await axios.get('http://localhost:3000/cart/orders', { withCredentials: true });
+            let res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/cart/orders`, { withCredentials: true });
             setOrders(res.data);
         } catch (err) {
             toast.error("Failed to load orders");

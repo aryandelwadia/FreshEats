@@ -12,7 +12,7 @@ export default function UsersPanel() {
 
     async function fetchUsers() {
         try {
-            let res = await axios.get('http://localhost:3000/admin/users', { withCredentials: true });
+            let res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/admin/users`, { withCredentials: true });
             setUsers(res.data);
         } catch (err) { toast.error('Failed to load users'); }
     }
@@ -29,10 +29,10 @@ export default function UsersPanel() {
             if (editingId) {
                 let data = { ...form };
                 if (!data.password) delete data.password;
-                await axios.put(`http://localhost:3000/admin/users/${editingId}`, data, { withCredentials: true });
+                await axios.put(`${import.meta.env.VITE_BACKEND_URL}/admin/users/${editingId}`, data, { withCredentials: true });
                 toast.success('User updated');
             } else {
-                await axios.post('http://localhost:3000/admin/users', form, { withCredentials: true });
+                await axios.post(`${import.meta.env.VITE_BACKEND_URL}/admin/users`, form, { withCredentials: true });
                 toast.success('User created');
             }
             resetForm();
@@ -43,7 +43,7 @@ export default function UsersPanel() {
     async function handleDelete(id) {
         if (!confirm('Delete this user? This will also remove their cart.')) return;
         try {
-            await axios.delete(`http://localhost:3000/admin/users/${id}`, { withCredentials: true });
+            await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/admin/users/${id}`, { withCredentials: true });
             toast.success('User deleted');
             fetchUsers();
         } catch (err) { toast.error('Failed to delete'); }

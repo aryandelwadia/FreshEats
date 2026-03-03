@@ -19,7 +19,7 @@ export default function Navbar({ userLoginState, setUserLoginState }) {
 
     async function handleLogout() {
         try {
-            await axios.post('http://localhost:3000/user/logout', {}, { withCredentials: true });
+            await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/logout`, {}, { withCredentials: true });
             setUserLoginState(false);
             toast.success("You have logged out successfully");
         }

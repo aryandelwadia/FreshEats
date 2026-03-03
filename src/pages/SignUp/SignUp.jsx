@@ -27,7 +27,7 @@ export default function SignUp() {
         }
         else {
             try {
-                const response = await axios.post("http://localhost:3000/user/signup", {
+                const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/signup`, {
                     fname: fname,
                     lname: lname,
                     username: usernameIn,

@@ -12,7 +12,7 @@ export default function SellersPanel() {
 
     async function fetchSellers() {
         try {
-            let res = await axios.get('http://localhost:3000/admin/sellers', { withCredentials: true });
+            let res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/admin/sellers`, { withCredentials: true });
             setSellers(res.data);
         } catch (err) { toast.error('Failed to load sellers'); }
     }
@@ -29,10 +29,10 @@ export default function SellersPanel() {
             if (editingId) {
                 let data = { ...form };
                 if (!data.password) delete data.password;
-                await axios.put(`http://localhost:3000/admin/sellers/${editingId}`, data, { withCredentials: true });
+                await axios.put(`${import.meta.env.VITE_BACKEND_URL}/admin/sellers/${editingId}`, data, { withCredentials: true });
                 toast.success('Seller updated');
             } else {
-                await axios.post('http://localhost:3000/admin/sellers', form, { withCredentials: true });
+                await axios.post(`${import.meta.env.VITE_BACKEND_URL}/admin/sellers`, form, { withCredentials: true });
                 toast.success('Seller created');
             }
             resetForm();
@@ -43,7 +43,7 @@ export default function SellersPanel() {
     async function handleDelete(id) {
         if (!confirm('Delete this seller?')) return;
         try {
-            await axios.delete(`http://localhost:3000/admin/sellers/${id}`, { withCredentials: true });
+            await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/admin/sellers/${id}`, { withCredentials: true });
             toast.success('Seller deleted');
             fetchSellers();
         } catch (err) { toast.error('Failed to delete'); }

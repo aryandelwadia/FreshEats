@@ -10,14 +10,14 @@ export default function OrdersPanel() {
 
     async function fetchOrders() {
         try {
-            let res = await axios.get('http://localhost:3000/admin/orders', { withCredentials: true });
+            let res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/admin/orders`, { withCredentials: true });
             setOrders(res.data);
         } catch (err) { toast.error('Failed to load orders'); }
     }
 
     async function handleStatusChange(id, status) {
         try {
-            await axios.put(`http://localhost:3000/admin/orders/${id}/status`, { status }, { withCredentials: true });
+            await axios.put(`${import.meta.env.VITE_BACKEND_URL}/admin/orders/${id}/status`, { status }, { withCredentials: true });
             toast.success(`Status updated to ${status}`);
             fetchOrders();
         } catch (err) { toast.error(err.response?.data?.message || 'Failed to update'); }
@@ -26,7 +26,7 @@ export default function OrdersPanel() {
     async function handleDelete(id) {
         if (!confirm('Delete this order?')) return;
         try {
-            await axios.delete(`http://localhost:3000/admin/orders/${id}`, { withCredentials: true });
+            await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/admin/orders/${id}`, { withCredentials: true });
             toast.success('Order deleted');
             fetchOrders();
         } catch (err) { toast.error('Failed to delete'); }

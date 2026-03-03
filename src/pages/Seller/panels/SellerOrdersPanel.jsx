@@ -10,7 +10,7 @@ export default function SellerOrdersPanel() {
 
     async function fetchOrders() {
         try {
-            let res = await axios.get('http://localhost:3000/seller/orders', { withCredentials: true });
+            let res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/seller/orders`, { withCredentials: true });
             setOrders(res.data);
         } catch (err) { toast.error('Failed to load orders'); }
     }

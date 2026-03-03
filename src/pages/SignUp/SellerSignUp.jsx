@@ -32,7 +32,7 @@ export default function SellerSignUp() {
         }
         else {
             try {
-                const response = await axios.post("http://localhost:3000/seller/signup", {
+                const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/seller/signup`, {
                     fname: fname,
                     lname: lname,
                     username: username,

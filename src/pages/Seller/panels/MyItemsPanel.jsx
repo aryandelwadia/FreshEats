@@ -12,7 +12,7 @@ export default function MyItemsPanel() {
 
     async function fetchItems() {
         try {
-            let res = await axios.get('http://localhost:3000/item/myitems', { withCredentials: true });
+            let res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/item/myitems`, { withCredentials: true });
             setItems(res.data);
         } catch (err) { toast.error('Failed to load items'); }
     }
@@ -28,10 +28,10 @@ export default function MyItemsPanel() {
         try {
             let data = { ...form, itemprice: parseFloat(form.itemprice) };
             if (editingId) {
-                await axios.put(`http://localhost:3000/item/update/${editingId}`, data, { withCredentials: true });
+                await axios.put(`${import.meta.env.VITE_BACKEND_URL}/item/update/${editingId}`, data, { withCredentials: true });
                 toast.success('Item updated!');
             } else {
-                await axios.post('http://localhost:3000/item/additem', data, { withCredentials: true });
+                await axios.post(`${import.meta.env.VITE_BACKEND_URL}/item/additem`, data, { withCredentials: true });
                 toast.success('Item added to shop!');
             }
             resetForm();
@@ -42,7 +42,7 @@ export default function MyItemsPanel() {
     async function handleDelete(id) {
         if (!confirm('Delete this item from your shop?')) return;
         try {
-            await axios.delete(`http://localhost:3000/item/delete/${id}`, { withCredentials: true });
+            await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/item/delete/${id}`, { withCredentials: true });
             toast.success('Item deleted');
             fetchItems();
         } catch (err) { toast.error('Failed to delete'); }

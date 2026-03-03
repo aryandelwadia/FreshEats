@@ -23,7 +23,7 @@ export default function ShoppingPage({ userLoginState, setUserLoginState }) {
     async function handleAddToCart(item) {
         if (userLoginState) {
             try {
-                let response = await axios.post('http://localhost:3000/cart/addItem', item, { withCredentials: true });
+                let response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/cart/addItem`, item, { withCredentials: true });
                 if (response.status === 200) {
                     toast.success("Item Added to Cart Successfully");
                 }
@@ -46,7 +46,7 @@ export default function ShoppingPage({ userLoginState, setUserLoginState }) {
         try {
             let limit = 8;
             let query = `?page=${pageNum}&limit=${limit}&search=${encodeURIComponent(search)}&category=${encodeURIComponent(category)}&sort=${sort}`;
-            let response = await axios.get(`http://localhost:3000/item/getitem${query}`, { withCredentials: true });
+            let response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/item/getitem${query}`, { withCredentials: true });
 
             if (reset || pageNum === 1) {
                 setItemsdata(response.data.items);

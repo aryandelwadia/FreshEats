@@ -26,7 +26,7 @@ export default function CheckoutModal({ isOpen, onClose, onPlaceOrder, totalPric
 
     async function fetchAddresses() {
         try {
-            let res = await axios.get('http://localhost:3000/user/address', { withCredentials: true });
+            let res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/user/address`, { withCredentials: true });
             setAddresses(res.data.addresses || []);
             if (res.data.addresses && res.data.addresses.length > 0) {
                 setSelectedAddressId(res.data.addresses[0]._id);
@@ -43,7 +43,7 @@ export default function CheckoutModal({ isOpen, onClose, onPlaceOrder, totalPric
             return;
         }
         try {
-            let res = await axios.post('http://localhost:3000/user/address', newAddress, { withCredentials: true });
+            let res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/address`, newAddress, { withCredentials: true });
             setAddresses(res.data.addresses);
             let added = res.data.addresses[res.data.addresses.length - 1];
             setSelectedAddressId(added._id);
@@ -57,7 +57,7 @@ export default function CheckoutModal({ isOpen, onClose, onPlaceOrder, totalPric
 
     async function handleDeleteAddress(addressId) {
         try {
-            let res = await axios.post('http://localhost:3000/user/address/delete', { addressId }, { withCredentials: true });
+            let res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/address/delete`, { addressId }, { withCredentials: true });
             setAddresses(res.data.addresses);
             if (selectedAddressId === addressId) {
                 setSelectedAddressId(res.data.addresses.length > 0 ? res.data.addresses[0]._id : '');

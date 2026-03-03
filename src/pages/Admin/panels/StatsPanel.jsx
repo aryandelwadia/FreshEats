@@ -11,7 +11,7 @@ export default function StatsPanel() {
 
     async function fetchStats() {
         try {
-            let res = await axios.get('http://localhost:3000/admin/stats', { withCredentials: true });
+            let res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/admin/stats`, { withCredentials: true });
             setStats(res.data);
         } catch (err) {
             toast.error('Failed to load stats');

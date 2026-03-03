@@ -21,7 +21,7 @@ export default function SellerDashboard() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get('http://localhost:3000/seller/currentseller', { withCredentials: true })
+        axios.get(`${import.meta.env.VITE_BACKEND_URL}/seller/currentseller`, { withCredentials: true })
             .then(res => setStoreName(res.data.storename || 'My Store'))
             .catch(() => {
                 toast.error('Seller session expired');
@@ -31,7 +31,7 @@ export default function SellerDashboard() {
 
     async function handleLogout() {
         try {
-            await axios.post('http://localhost:3000/seller/logout', {}, { withCredentials: true });
+            await axios.post(`${import.meta.env.VITE_BACKEND_URL}/seller/logout`, {}, { withCredentials: true });
             toast.success('Logged out');
             navigate('/');
         } catch { navigate('/'); }

@@ -23,7 +23,7 @@ export default function SellerLogin({ sellerLoginState, setSellerLoginState }) {
         }
         else {
             try {
-                const response = await axios.post('http://localhost:3000/seller/login', {
+                const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/seller/login`, {
                     email: email,
                     password: password
                 }, { withCredentials: true });

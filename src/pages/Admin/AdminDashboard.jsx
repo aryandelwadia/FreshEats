@@ -25,7 +25,7 @@ export default function AdminDashboard() {
 
     // Verify admin auth on load
     useEffect(() => {
-        axios.get('http://localhost:3000/admin/stats', { withCredentials: true })
+        axios.get(`${import.meta.env.VITE_BACKEND_URL}/admin/stats`, { withCredentials: true })
             .catch(() => {
                 toast.error('Admin session expired');
                 navigate('/admin');
@@ -34,7 +34,7 @@ export default function AdminDashboard() {
 
     async function handleLogout() {
         try {
-            await axios.post('http://localhost:3000/admin/logout', {}, { withCredentials: true });
+            await axios.post(`${import.meta.env.VITE_BACKEND_URL}/admin/logout`, {}, { withCredentials: true });
             toast.success('Logged out');
             navigate('/admin');
         } catch { navigate('/admin'); }

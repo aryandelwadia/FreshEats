@@ -11,7 +11,7 @@ export default function SellerProfilePanel() {
 
     async function fetchProfile() {
         try {
-            let res = await axios.get('http://localhost:3000/seller/currentseller', { withCredentials: true });
+            let res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/seller/currentseller`, { withCredentials: true });
             setSeller(res.data);
             setForm({
                 fname: res.data.fname, lname: res.data.lname, username: res.data.username,
@@ -26,7 +26,7 @@ export default function SellerProfilePanel() {
         try {
             let data = { ...form };
             if (!data.password) delete data.password;
-            await axios.put('http://localhost:3000/seller/updateprofile', data, { withCredentials: true });
+            await axios.put(`${import.meta.env.VITE_BACKEND_URL}/seller/updateprofile`, data, { withCredentials: true });
             toast.success('Profile updated!');
             setEditing(false);
             fetchProfile();

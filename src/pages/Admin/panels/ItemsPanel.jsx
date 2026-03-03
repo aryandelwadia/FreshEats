@@ -12,7 +12,7 @@ export default function ItemsPanel() {
 
     async function fetchItems() {
         try {
-            let res = await axios.get('http://localhost:3000/admin/items', { withCredentials: true });
+            let res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/admin/items`, { withCredentials: true });
             setItems(res.data);
         } catch (err) { toast.error('Failed to load items'); }
     }
@@ -28,10 +28,10 @@ export default function ItemsPanel() {
         try {
             let data = { ...form, itemprice: parseFloat(form.itemprice) };
             if (editingId) {
-                await axios.put(`http://localhost:3000/admin/items/${editingId}`, data, { withCredentials: true });
+                await axios.put(`${import.meta.env.VITE_BACKEND_URL}/admin/items/${editingId}`, data, { withCredentials: true });
                 toast.success('Item updated');
             } else {
-                await axios.post('http://localhost:3000/admin/items', data, { withCredentials: true });
+                await axios.post(`${import.meta.env.VITE_BACKEND_URL}/admin/items`, data, { withCredentials: true });
                 toast.success('Item created');
             }
             resetForm();
@@ -42,7 +42,7 @@ export default function ItemsPanel() {
     async function handleDelete(id) {
         if (!confirm('Delete this item?')) return;
         try {
-            await axios.delete(`http://localhost:3000/admin/items/${id}`, { withCredentials: true });
+            await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/admin/items/${id}`, { withCredentials: true });
             toast.success('Item deleted');
             fetchItems();
         } catch (err) { toast.error('Failed to delete'); }
@@ -79,7 +79,7 @@ export default function ItemsPanel() {
                 {items.map(item => (
                     <div key={item._id} className="rounded-2xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}>
                         <div className="h-40 bg-gray-800 flex items-center justify-center overflow-hidden">
-                            {item.img ? <img src={item.img.startsWith('http') ? item.img : `http://localhost:3000/uploads/${item.img}`} alt={item.itemname} className="w-full h-full object-cover" /> : <span className="text-4xl">🥬</span>}
+                            {item.img ? <img src={item.img.startsWith('http') ? item.img : `${import.meta.env.VITE_BACKEND_URL}/uploads/${item.img}`} alt={item.itemname} className="w-full h-full object-cover" /> : <span className="text-4xl">🥬</span>}
                         </div>
                         <div className="p-4">
                             <p className="fredoka text-lg">{item.itemname}</p>

@@ -16,7 +16,7 @@ export default function AdminLogin() {
         e.preventDefault();
         setLoading(true);
         try {
-            await axios.post('http://localhost:3000/admin/login', { username, password }, { withCredentials: true });
+            await axios.post(`${import.meta.env.VITE_BACKEND_URL}/admin/login`, { username, password }, { withCredentials: true });
             toast.success('Welcome, Admin!');
             navigate('/admin/dashboard');
         } catch (err) {

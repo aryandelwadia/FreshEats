@@ -1,6 +1,6 @@
 export default function Items(props) {
 
-    const imgSrc = props.img && props.img.startsWith('http') ? props.img : `http://localhost:3000/uploads/${props.img}`;
+    const imgSrc = props.img && props.img.startsWith('http') ? props.img : `${import.meta.env.VITE_BACKEND_URL}/uploads/${props.img}`;
 
     return <>
         <div className="bghc rounded-xl m-4 md:m-10">
