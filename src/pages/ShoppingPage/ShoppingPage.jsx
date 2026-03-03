@@ -16,6 +16,10 @@ export default function ShoppingPage({ userLoginState, setUserLoginState }) {
     const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(false);
 
+    const [search, setSearch] = useState('');
+    const [category, setCategory] = useState('All');
+    const [sort, setSort] = useState('newest');
+
     async function handleAddToCart(item) {
         if (userLoginState) {
             try {
@@ -37,18 +41,20 @@ export default function ShoppingPage({ userLoginState, setUserLoginState }) {
         }
     }
 
-    async function fetchItems(pageNum) {
+    async function fetchItems(pageNum, reset = false) {
         setLoading(true);
         try {
-            // Fetch 8 items at a time to perfectly fill 2 rows of the 4-column grid
-            let response = await axios.get(`http://localhost:3000/item/getitem?page=${pageNum}&limit=8`, { withCredentials: true });
+            let limit = 8;
+            let query = `?page=${pageNum}&limit=${limit}&search=${encodeURIComponent(search)}&category=${encodeURIComponent(category)}&sort=${sort}`;
+            let response = await axios.get(`http://localhost:3000/item/getitem${query}`, { withCredentials: true });
 
-            if (pageNum === 1) {
+            if (reset || pageNum === 1) {
                 setItemsdata(response.data.items);
             } else {
                 setItemsdata(prev => [...prev, ...response.data.items]);
             }
             setTotalPages(response.data.totalPages);
+            setPage(pageNum);
         }
         catch (err) {
             toast.error("Failed to load items");
@@ -56,30 +62,79 @@ export default function ShoppingPage({ userLoginState, setUserLoginState }) {
         setLoading(false);
     }
 
+    // Refetch items when filters change
     useEffect(() => {
-        fetchItems(1);
-    }, [])
+        // debounce search slightly
+        const timeoutId = setTimeout(() => {
+            fetchItems(1, true);
+        }, 300);
+        return () => clearTimeout(timeoutId);
+    }, [search, category, sort]);
 
     function loadMore() {
         if (page < totalPages) {
-            const nextPage = page + 1;
-            setPage(nextPage);
-            fetchItems(nextPage);
+            fetchItems(page + 1);
         }
     }
 
     return <>
         <Navbar userLoginState={userLoginState} setUserLoginState={setUserLoginState} />
-        <p className="text-center text-4xl md:text-7xl cantora-one-regular mt-8">Shop Now </p>
-        <hr className="w-4/5 m-auto my-10" style={{ borderColor: 'rgba(6,193,103,0.3)' }} />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4 px-4 md:px-10">
+        <div className="bg-black text-white pt-8 pb-4 sticky top-0 z-30 shadow-2xl" style={{ borderBottom: '1px solid rgba(6,193,103,0.2)' }}>
+            <p className="text-center text-4xl md:text-5xl cantora-one-regular mb-6 text-[#06c167]">Fresh Market</p>
+
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex flex-col xl:flex-row gap-4 items-center justify-between">
+                    {/* Search Bar */}
+                    <div className="w-full xl:w-2/5 relative">
+                        <span className="absolute left-3 top-2.5 text-xl">🔍</span>
+                        <input
+                            type="text"
+                            placeholder="Search fruits, veggies..."
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            className="w-full pl-10 pr-4 py-3 rounded-xl cantora-one-regular text-lg outline-none focus:ring-2 focus:ring-[#06c167] transition-all bg-gray-900 border border-gray-800"
+                        />
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row gap-4 w-full xl:w-auto">
+                        {/* Category Filter */}
+                        <select
+                            value={category}
+                            onChange={(e) => setCategory(e.target.value)}
+                            className="w-full sm:w-auto px-4 py-3 rounded-xl cantora-one-regular text-sm md:text-base outline-none cursor-pointer bg-gray-900 border border-gray-800 focus:ring-2 focus:ring-[#06c167]"
+                        >
+                            <option value="All">All Categories</option>
+                            <option value="Fruits">Fruits 🍎</option>
+                            <option value="Vegetables">Vegetables 🥕</option>
+                            <option value="Leafy Greens">Leafy Greens 🥬</option>
+                            <option value="Root Vegetables">Root Veggies 🥔</option>
+                            <option value="Organic">Organic 🌱</option>
+                            <option value="Other">Other 🛒</option>
+                        </select>
+
+                        {/* Sort Filter */}
+                        <select
+                            value={sort}
+                            onChange={(e) => setSort(e.target.value)}
+                            className="w-full sm:w-auto px-4 py-3 rounded-xl cantora-one-regular text-sm md:text-base outline-none cursor-pointer bg-gray-900 border border-gray-800 focus:ring-2 focus:ring-[#06c167]"
+                        >
+                            <option value="newest">Newest Arrivals 🌟</option>
+                            <option value="priceLowToHigh">Price: Low to High 📉</option>
+                            <option value="priceHighToLow">Price: High to Low 📈</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4 px-4 md:px-10 mt-8">
             {itemsdata.length > 0 ? (
                 itemsdata.map(item => (
                     <Items key={item._id} name={item.itemname} price={item.itemprice} place={item.prodplace} img={item.img} userLoginState={userLoginState} handleAddToCart={() => handleAddToCart(item)} />
                 ))
             ) : (
-                !loading && <p className="text-center text-gray-500 col-span-full py-10">No items available at the moment.</p>
+                !loading && <p className="text-center text-gray-500 col-span-full py-10 text-xl cantora-one-regular">No items found matching your filters 🥬</p>
             )}
         </div>
 

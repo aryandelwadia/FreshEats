@@ -21,6 +21,15 @@ const itemSchema = mongoose.Schema({
     sellerEmail: {
         type: String,
         default: ''
+    },
+    category: {
+        type: String,
+        enum: ['Fruits', 'Vegetables', 'Organic', 'Leafy Greens', 'Root Vegetables', 'Other'],
+        default: 'Fruits'
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
 });
 

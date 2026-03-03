@@ -6,7 +6,7 @@ export default function MyItemsPanel() {
     const [items, setItems] = useState([]);
     const [showForm, setShowForm] = useState(false);
     const [editingId, setEditingId] = useState(null);
-    const [form, setForm] = useState({ itemname: '', itemprice: '', prodplace: '', img: '' });
+    const [form, setForm] = useState({ itemname: '', itemprice: '', prodplace: '', img: '', category: 'Fruits' });
 
     useEffect(() => { fetchItems(); }, []);
 
@@ -18,7 +18,7 @@ export default function MyItemsPanel() {
     }
 
     function resetForm() {
-        setForm({ itemname: '', itemprice: '', prodplace: '', img: '' });
+        setForm({ itemname: '', itemprice: '', prodplace: '', img: '', category: 'Fruits' });
         setEditingId(null);
         setShowForm(false);
     }
@@ -49,7 +49,7 @@ export default function MyItemsPanel() {
     }
 
     function startEdit(item) {
-        setForm({ itemname: item.itemname, itemprice: item.itemprice, prodplace: item.prodplace, img: item.img || '' });
+        setForm({ itemname: item.itemname, itemprice: item.itemprice, prodplace: item.prodplace, img: item.img || '', category: item.category || 'Fruits' });
         setEditingId(item._id);
         setShowForm(true);
     }
@@ -82,6 +82,17 @@ export default function MyItemsPanel() {
                             <label className="cantora-one-regular text-gray-400 text-sm block mb-1">Image URL</label>
                             <input value={form.img} onChange={e => setForm({ ...form, img: e.target.value })} placeholder="https://images.unsplash.com/..." required className="w-full p-2 rounded-lg fredoka" style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', color: 'white' }} />
                         </div>
+                        <div className="md:col-span-2">
+                            <label className="cantora-one-regular text-gray-400 text-sm block mb-1">Category</label>
+                            <select value={form.category} onChange={e => setForm({ ...form, category: e.target.value })} required className="w-full p-2 rounded-lg fredoka" style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', color: 'white' }}>
+                                <option value="Fruits">Fruits</option>
+                                <option value="Vegetables">Vegetables</option>
+                                <option value="Leafy Greens">Leafy Greens</option>
+                                <option value="Root Vegetables">Root Vegetables</option>
+                                <option value="Organic">Organic</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
                     </div>
                     {form.img && (
                         <div className="mb-4">
@@ -102,7 +113,7 @@ export default function MyItemsPanel() {
                         <div className="p-4">
                             <p className="fredoka text-lg text-white">{item.itemname}</p>
                             <p className="fredoka text-xl text-[#06c167]">${item.itemprice}/kg</p>
-                            <p className="cantora-one-regular text-gray-400 text-sm mt-1">{item.prodplace}</p>
+                            <p className="cantora-one-regular text-gray-400 text-sm mt-1">{item.prodplace} • {item.category || 'Fruits'}</p>
                             <div className="flex gap-3 mt-3 pt-3" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
                                 <button onClick={() => startEdit(item)} className="text-blue-400 hover:text-blue-300 fredoka text-sm">✏️ Edit</button>
                                 <button onClick={() => handleDelete(item._id)} className="text-red-400 hover:text-red-300 fredoka text-sm">🗑️ Delete</button>

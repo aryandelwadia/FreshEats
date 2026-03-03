@@ -23,26 +23,37 @@ module.exports.additem = async function additem(req, res) {
 
 module.exports.getitem = async function getitem(req, res) {
     try {
-        const page = parseInt(req.query.page);
+        const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 20;
+        const search = req.query.search || '';
+        const category = req.query.category || '';
+        const sort = req.query.sort || 'newest';
 
-        if (page) {
-            logger.info(`Fetching items page ${page} with limit ${limit}`);
-            const skip = (page - 1) * limit;
-            const items = await itemModel.find({}).skip(skip).limit(limit);
-            const total = await itemModel.countDocuments();
-            return res.json({
-                items,
-                totalPages: Math.ceil(total / limit),
-                currentPage: page
-            });
+        // Build query object
+        let query = {};
+        if (search) {
+            query.itemname = { $regex: search, $options: 'i' };
+        }
+        if (category && category !== 'All') {
+            query.category = category;
         }
 
-        // Fallback for non-paginated requests
-        logger.info('Fetching all items from shop');
-        let data = await itemModel.find({});
-        logger.info(`Fetched ${data.length} items from shop`);
-        res.json(data);
+        // Build sort object
+        let sortObj = { createdAt: -1 }; // Default: Newest arrivals
+        if (sort === 'priceLowToHigh') sortObj = { itemprice: 1 };
+        if (sort === 'priceHighToLow') sortObj = { itemprice: -1 };
+
+        logger.info(`Fetching items. Page: ${page}, Limit: ${limit}, Search: ${search}, Category: ${category}, Sort: ${sort}`);
+
+        const skip = (page - 1) * limit;
+        const items = await itemModel.find(query).sort(sortObj).skip(skip).limit(limit);
+        const total = await itemModel.countDocuments(query);
+
+        return res.json({
+            items,
+            totalPages: Math.ceil(total / limit) || 1,
+            currentPage: page
+        });
     }
     catch (err) {
         logger.error(`Get items error: ${err.message}`);
