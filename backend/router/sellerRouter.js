@@ -25,6 +25,10 @@ sellerRouter
     .put(isSellerLoggedIn, updateSellerProfile);
 
 sellerRouter
+    .route('/stats')
+    .get(isSellerLoggedIn, require('../controller/sellerController').getSellerStats);
+
+sellerRouter
     .route('/orders')
     .get(isSellerLoggedIn, getSellerOrders);
 

@@ -131,3 +131,48 @@ module.exports.getSellerOrders = async function getSellerOrders(req, res) {
         res.status(500).json({ message: err.message });
     }
 };
+
+module.exports.getSellerStats = async function getSellerStats(req, res) {
+    try {
+        const sellerEmail = req.user.email;
+        logger.info(`Fetching stats for seller: ${sellerEmail}`);
+
+        let sellerItems = await itemModel.find({ sellerEmail }).select('itemname');
+        let itemNames = sellerItems.map(i => i.itemname);
+
+        let orders = await orderModel.find({ 'items.itemname': { $in: itemNames } });
+
+        let totalRevenue = 0;
+        let itemSalesMap = {};
+
+        orders.forEach(order => {
+            order.items.forEach(item => {
+                if (itemNames.includes(item.itemname)) {
+                    totalRevenue += (item.itemprice * item.quantity);
+
+                    if (itemSalesMap[item.itemname]) {
+                        itemSalesMap[item.itemname] += item.quantity;
+                    } else {
+                        itemSalesMap[item.itemname] = item.quantity;
+                    }
+                }
+            });
+        });
+
+        // Convert map to array and sort by quantity sold (top 5)
+        let topItems = Object.keys(itemSalesMap).map(name => ({
+            name,
+            sold: itemSalesMap[name]
+        })).sort((a, b) => b.sold - a.sold).slice(0, 5);
+
+        res.status(200).json({
+            totalOrders: orders.length,
+            totalRevenue: totalRevenue.toFixed(2),
+            topItems
+        });
+    }
+    catch (err) {
+        logger.error(`Get seller stats error: ${err.message}`);
+        res.status(500).json({ message: err.message });
+    }
+};

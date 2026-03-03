@@ -296,19 +296,48 @@ module.exports.getDashboardStats = async function getDashboardStats(req, res) {
         let totalRevenue = 0;
         orders.forEach(o => { totalRevenue += o.total || 0; });
 
+        // Calculate Revenue Over Time (Last 30 Days)
+        const thirtyDaysAgo = new Date();
+        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+        const recentOrders = await orderModel.find({ createdAt: { $gte: thirtyDaysAgo } });
+
+        // Initialize an array for the last 30 days containing { date, revenue }
+        const revenueMap = {};
+        for (let i = 29; i >= 0; i--) {
+            const d = new Date();
+            d.setDate(d.getDate() - i);
+            const dateString = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            revenueMap[dateString] = 0;
+        }
+
+        // Populate revenue
+        recentOrders.forEach(o => {
+            const dateString = new Date(o.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            if (revenueMap[dateString] !== undefined) {
+                revenueMap[dateString] += (o.total || 0);
+            }
+        });
+
+        const revenueData = Object.keys(revenueMap).map(date => ({
+            date,
+            revenue: parseFloat(revenueMap[date].toFixed(2))
+        }));
+
         res.status(200).json({
             totalUsers,
             totalSellers,
             totalItems,
             totalOrders,
             totalRevenue: totalRevenue.toFixed(2),
-            ordersByStatus: {
-                pending: orders.filter(o => o.status === 'pending').length,
-                confirmed: orders.filter(o => o.status === 'confirmed').length,
-                shipped: orders.filter(o => o.status === 'shipped').length,
-                delivered: orders.filter(o => o.status === 'delivered').length,
-                cancelled: orders.filter(o => o.status === 'cancelled').length
-            }
+            revenueData, // New array for Recharts LineChart
+            ordersByStatus: [
+                { name: 'Pending', value: orders.filter(o => o.status === 'pending').length, fill: '#eab308' },
+                { name: 'Confirmed', value: orders.filter(o => o.status === 'confirmed').length, fill: '#3b82f6' },
+                { name: 'Shipped', value: orders.filter(o => o.status === 'shipped').length, fill: '#8b5cf6' },
+                { name: 'Delivered', value: orders.filter(o => o.status === 'delivered').length, fill: '#06c167' },
+                { name: 'Cancelled', value: orders.filter(o => o.status === 'cancelled').length, fill: '#ef4444' }
+            ]
         });
     } catch (err) {
         logger.error(`Admin stats error: ${err.message}`);
