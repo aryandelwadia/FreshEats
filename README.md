@@ -1,62 +1,111 @@
-<h1>FRESH EATS (MERN)</h1>
-Introducing FRESH EATS, your go-to web app for the freshest fruits and vegetables! FRESH EATS is dedicated to bringing farm-fresh produce directly to your doorstep. Our app makes it easy to browse a wide selection of high-quality fruits and vegetables, sourced from local farms and trusted suppliers. With just a few clicks, you can place your order and enjoy fast, reliable delivery.<br> <br>
+# 🥬 FreshEats (MERN Stack)
 
-Experience the convenience of shopping for fresh produce from the comfort of your home. Our intuitive interface, detailed product descriptions, and seasonal recommendations help you find exactly what you need. Plus, enjoy exclusive deals, subscription options, and secure payment methods.
+![FreshEats Banner](https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=1200&h=400)
 
-<h1>TECH Stack Used</h1>
-1. HTML CSS JS <br>
-2. React (+ Vite) <br>
-3. Tailwind CSS<br>
-4. Node JS and Packages<br>
-5. Express JS<br>
-6. Mongo DB<br>
+Introducing **FreshEats**, your go-to web application for the freshest fruits and vegetables! FreshEats is a comprehensive e-commerce platform dedicated to bringing farm-fresh produce directly from sellers to customers' doorsteps. 
 
-<h2>1. HTML CSS JS</h2>
-If you are learning web development, you will come across terms like HTML, CSS, and JavaScript. These are often called the building blocks of the Web.<br><br>
-So you can think of HTML as the language used for creating detailed instructions concerning style, type, format, structure and the makeup of a web page before it gets printed.<br><br>
-While HTML is a markup language used to format/structure a web page, CSS is a design language that you use to make your web page look nice and presentable. CSS stands for Cascading Style Sheets, and you use it to improve the appearance of a web page. By adding thoughtful CSS styles, you make your page more attractive and pleasant for the end user to view and use.<br><br>
-Now, if HTML is the markup language and CSS is the design language, then JavaScript is the programming language.<br><br>
-Together, we use these three languages to format, design, and program web pages. And when you link together some web pages with hyperlinks, along with all their assets like images, videos, and so on that are on the server computer, it gets rendered into a website.
+The application features three distinct user roles:
+1. **Customers**: Can browse items, manage their cart, save addresses, and place orders.
+2. **Sellers**: Can manage their store profile, add/edit/delete items in their inventory, and track orders containing their products.
+3. **Admins**: Have full control over the platform, allowing management of users, sellers, inventory, and global order tracking through a dedicated glassmorphism dashboard.
 
-<h2>2. React + Vite</h2>
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 💻 Tech Stack & Technical Details
 
-<h2>3. Tailwind CSS</h2>
-Utility classes help you work within the constraints of a system instead of littering your stylesheets with arbitrary values. They make it easy to be consistent with color choices, spacing, typography, shadows, and everything else that makes up a well-engineered design system. Because Tailwind is so low-level, it never encourages you to design the same site twice. Even with the same color palette and sizing scale, it's easy to build the same component with a completely different look in the next project.
+FreshEats is built using the **MERN** stack (MongoDB, Express.js, React.js, Node.js) with a focus on modern UI/UX design and scalable backend architecture.
 
-<h2>4. Node JS and Packages</h2>
-Node.js is a cross-platform, open-source JavaScript runtime environment that can run on Windows, Linux, Unix, macOS, and more. Node.js runs on the V8 JavaScript engine, and executes JavaScript code outside a web browser. Node.js lets developers use JavaScript to write command line tools and for server-side scripting.<br><br>
+### Frontend
+* **React + Vite:** Provides a lightning-fast development environment and optimized production builds.
+* **Tailwind CSS:** Used for utility-first styling, enabling responsive, modern, and beautiful UI components without leaving the HTML.
+* **React Router DOM:** Handles client-side routing with protected routes for sellers and admins.
+* **Framer Motion:** Adds smooth micro-animations and page transitions for a premium feel.
+* **Axios:** For making secure HTTP requests to the backend API.
+* **React Hot Toast:** For beautiful and responsive UI notifications.
 
-npm is a package manager for the JavaScript programming language maintained by npm, Inc., a subsidiary of GitHub. npm is the default package manager for the JavaScript runtime environment Node.js and is included as a recommended feature in the Node.js installer.<br><br>
-<h3>Packages Used :-</h3>
-<h4>Frontend :-</h4>
-i. Axios<br>
-ii. Concurrently<br>
-iii. Dotenv<br>
-iv. framer-motion<br>
-v. react-router-dom<br>
-vi. react-hot-toast<br>
-vii. socket.io-client<br>
-<br><br>
-<h4>Backend :-</h4>
-i. bcrypt<br>
-ii. cookie-parser<br>
-iii. cors<br>
-iv. dotenv<br>
-v. email-validator<br>
-vi. express<br>
-vii. jsonwebtoken<br>
-viii. mongoose<br>
-ix. multer<br>
-x. socket.io<br>
-<br><br>
+### Backend
+* **Node.js & Express.js:** Powers the robust and scalable REST API.
+* **MongoDB & Mongoose:** NoSQL database for flexible data modeling (Users, Sellers, Items, Orders, Cart).
+* **JWT (JSON Web Tokens):** Manages secure, stateless authentication using HTTP-only cookies. Distinct tokens are used for Users, Sellers, and Admins (`loggedin`, `sellerLoggedin`, `adminLoggedin`).
+* **Bcrypt:** Ensures password security through secure hashing before database storage.
+* **Multer:** Handles multipart/form-data for image uploads (stored locally in `/uploads`).
+* **Winston:** Provides detailed backend logging for monitoring and debugging.
 
-<h2>5. Express JS</h2>
-Express is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications. With a myriad of HTTP utility methods and middleware at your disposal, creating a robust API is quick and easy. Express provides a thin layer of fundamental web application features, without obscuring Node.js features that you know and love. Express is a lightweight and flexible routing framework with minimal core features meant to be augmented through the use of Express middleware modules.
+---
 
-<h2>6. Mongo DB</h2>
-MongoDB is a source-available, cross-platform, document-oriented database program. Classified as a NoSQL database product, MongoDB utilizes JSON-like documents with optional schemas. MongoDB is developed by MongoDB Inc. and current versions are licensed under the Server Side Public License.
+## 🛠️ Setup & Installation Instructions
+
+Follow these steps to run FreshEats locally on your machine.
+
+### Prerequisites
+* Node.js installed (v16 or higher recommended)
+* MongoDB installed and running locally (or a MongoDB Atlas URI)
+
+### 1. Clone the Repository
+```bash
+git clone <repository-url>
+cd FreshEats
+```
+
+### 2. Install Dependencies
+You need to install packages for both the frontend (root directory) and the backend.
+```bash
+# Install frontend dependencies (Vite + React)
+npm install
+
+# Install backend dependencies
+cd backend
+npm install
+cd ..
+```
+
+### 3. Environment Variables
+Create a `.env` file in the **`backend/`** directory with the following variables:
+```env
+# Server Port
+PORT=3000
+
+# MongoDB Connection String
+# Example: mongodb://127.0.0.1:27017/fresheats
+MONGODB_URI=<your-mongodb-uri>
+
+# JWT Secrets for Authentication
+JWT_KEY=your_user_secret_key
+SELLER_JWT_KEY=your_seller_secret_key
+ADMIN_JWT_KEY=your_admin_secret_key
+```
+
+### 4. Run the Application
+You can run both the frontend and backend concurrently from the root directory using the custom npm script:
+
+```bash
+# Runs both Vite dev server and Express backend
+npm run both
+```
+
+* **Frontend:** `http://localhost:5173`
+* **Backend API:** `http://localhost:3000`
+
+---
+
+## ⚠️ Important Points & Features
+
+### Authentication & Roles
+* The application strictly separates authentication for the three roles using different JWT secrets and cookies to prevent privilege escalation.
+* **Admin Login Details:** 
+  * URL: `/admin`
+  * Username: `ADMIN`
+  * Password: `ADMIN1234`
+* **Seller Dashboard:** Sellers can only edit/delete items they have created and can only view orders containing their specific items.
+
+### API Documentation
+* Comprehensive API documentation is available in the `backend/docs/` directory, separated by route prefix (e.g., `user`, `seller`, `item`, `admin`, `cart`).
+* These docs contain API URLs, HTTP methods, descriptions, authentication requirements, and sample request/response bodies.
+
+### Image Handling
+* Shop items can use images uploaded from the computer (stored in `backend/uploads`) OR direct HTTP URLs (e.g., Unsplash links). 
+* The frontend automatically detects URL formats and renders the correct image source.
+
+### Database Syncing
+* The `My Orders` page fetches real-time data from the database.
+* Cart quantities are synced with the database, ensuring that users do not lose their cart status when logging out. Delete operations on users cascade to clear their cart data appropriately.
