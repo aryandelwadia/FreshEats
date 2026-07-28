@@ -4,7 +4,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import Items from "./Items";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast"
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router';
 
 export default function ShoppingPage({ userLoginState, setUserLoginState }) {
 

@@ -1,6 +1,6 @@
 import '../../components/HomeCard/homecard.css'
 import '../Login/login.css'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router'
 import { motion } from 'framer-motion'
 import axios from 'axios';
 import toast from 'react-hot-toast';
