@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { motion } from 'framer-motion';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router';
 import LOGO from '../../assets/Logo.png';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import toast from 'react-hot-toast';
 
 

@@ -1,7 +1,7 @@
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router';
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import axios from "axios";
